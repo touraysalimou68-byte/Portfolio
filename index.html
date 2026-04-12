@@ -153,107 +153,107 @@
                 { 
                     id: 1,
                     type: 'E5', 
-                    titre: "Administration Linux & SSH", 
-                    desc: "Mise en place d'une administration sécurisée et d'un accès SSH avec authentification par clé sur Debian 12.", 
+                    titre: "Segmentation VLAN & Routage Inter-VLAN", 
+                    desc: "Segmentation d'un réseau d'entreprise en 4 VLANs (Administration, RH, Finance, IT) avec routage inter-VLAN via la méthode Router-on-a-Stick et attribution automatique des adresses IP par DHCP.", 
                     date: "Projet GTECH",
                     pdfUrl: "E5_SSH.pdf", 
                     objectifs: [
-                        "Création utilisateurs & Groupes",
-                        "Droits Sudo limités",
-                        "SSH Clé RSA 4096 bits",
-                        "Pare-feu UFW"
+                        "Création & affectation des VLANs (10/20/30/40)",
+                        "Routage inter-VLAN (Router-on-a-Stick / dot1Q)",
+                        "Configuration DHCP par VLAN sur le routeur",
+                        "Sécurisation des ports en mode Access & Trunk"
                     ],
-                    environnement: ["Debian 12", "OpenSSH", "UFW", "PowerShell"]
+                    environnement: ["Cisco Routeur 2911", "Cisco Switch 2960", "Packet Tracer", "IOS Cisco"]
                 },
                 { 
                     id: 2,
                     type: 'E5', 
-                    titre: "Pare-feu pfSense & Segmentation", 
-                    desc: "Mise en place d'un pare-feu périmétrique matériel pour sécuriser l'accès WAN et isoler les zones réseaux.", 
+                    titre: "Filtrage réseau par Listes de Contrôle d'Accès (ACL)", 
+                    desc: "Déploiement d'ACL étendues sur un routeur Cisco pour autoriser uniquement le trafic HTTP vers un serveur web et bloquer tout accès vers un serveur hébergeant des données sensibles.", 
                     date: "Projet GTECH",
-                    pdfUrl: "E6_pfSense.pdf", 
+                    pdfUrl: "E6_ACL.pdf", 
                     objectifs: [
-                        "Installation pfSense Physique",
-                        "Segmentation WAN/LAN",
-                        "Filtrage de paquets",
-                        "Plan d'adressage strict"
+                        "Création d'ACL étendues (liste 100)",
+                        "Autorisation trafic HTTP (port 80) vers Serveur 1",
+                        "Blocage total des accès vers Serveur 2",
+                        "Validation par tests Ping, Telnet & navigateur"
                     ],
-                    environnement: ["pfSense (FreeBSD)", "Proxmox", "Réseau Physique", "Filtrage"]
+                    environnement: ["Cisco Routeur 2901", "Cisco Switch 2960", "Packet Tracer", "IOS Cisco"]
                 },
                 { 
                     id: 3,
                     type: 'E5', 
-                    titre: "ACL Étendues Cisco", 
-                    desc: "Sécurisation des flux internes par des listes de contrôle d'accès (ACL) étendues sur routeurs Cisco.", 
+                    titre: "Infrastructure réseau sécurisée : pfSense & Proxmox", 
+                    desc: "Déploiement d'un réseau physique sécurisé pour une PME avec un pare-feu matériel pfSense assurant la segmentation WAN/LAN et un hyperviseur Proxmox VE pour l'hébergement de futures machines virtuelles.", 
                     date: "Projet GTECH",
-                    pdfUrl: "E6_ACL.pdf", 
+                    pdfUrl: "E6_pfSense.pdf", 
                     objectifs: [
-                        "Création ACL Étendue (100)",
-                        "Filtrage Port 80 (HTTP)",
-                        "Autorisation ICMP sélective",
-                        "Sécurité IOS Cisco"
+                        "Installation de pfSense (pare-feu / passerelle WAN→LAN)",
+                        "Installation et configuration de Proxmox VE (hyperviseur)",
+                        "Plan d'adressage IP statique (192.168.10.0/24)",
+                        "Tests de connectivité LAN, passerelle et sortie Internet"
                     ],
-                    environnement: ["Routeurs Cisco 1841", "IOS", "Packet Tracer", "ACL Étendues"]
+                    environnement: ["pfSense 2.7 (FreeBSD)", "Proxmox VE 9", "Switch Gigabit", "Réseau physique"]
                 },
                 { 
                     id: 4,
                     type: 'E5', 
-                    titre: "Haute Disponibilité (HSRP)", 
-                    desc: "Implémentation de la redondance de passerelle via le protocole HSRP pour garantir la continuité de service.", 
+                    titre: "Contrôleur de Domaine Active Directory & Services DNS/DHCP", 
+                    desc: "Déploiement d'une infrastructure Active Directory complète sur Proxmox VE avec un pare-feu pfSense virtuel, un contrôleur de domaine Windows Server 2022 (AD DS), un serveur DNS et DHCP, et l'intégration d'un poste client Windows 10 au domaine.", 
                     date: "Projet GTECH",
-                    pdfUrl: "E6_HSRP.pdf", 
+                    pdfUrl: "E6_AD_DS.pdf", 
                     objectifs: [
-                        "Config HSRP (Active/Standby)",
-                        "IP Virtuelle (VIP)",
-                        "Load Balancing (VLANs)",
-                        "Architecture Double Étoile"
+                        "Déploiement pfSense virtuel (segmentation WAN/LAN)",
+                        "Installation Windows Server 2022 & promotion contrôleur de domaine",
+                        "Configuration DNS interne (forêt labo.local) & DHCP",
+                        "Jonction d'un poste Windows 10 au domaine"
                     ],
-                    environnement: ["Cisco ISR 4331", "HSRP", "Switchs Catalyst", "Redondance"]
+                    environnement: ["Windows Server 2022", "Proxmox VE", "pfSense virtuel", "Windows 10"]
                 },
                 { 
                     id: 5,
                     type: 'E5', 
-                    titre: "Déploiement GPO", 
-                    desc: "Centralisation des configurations et sécurisation des postes utilisateurs via GPO.", 
+                    titre: "Stratégies de Groupe (GPO) & Sécurisation des postes", 
+                    desc: "Mise en place de 4 GPO sur un contrôleur de domaine Active Directory pour automatiser le mappage de lecteurs réseau, imposer un fond d'écran d'entreprise et restreindre l'accès aux outils système sensibles.", 
                     date: "Projet GTECH",
                     pdfUrl: "E6_GPO.pdf", 
                     objectifs: [
-                        "Mappage lecteur réseau",
-                        "Uniformisation fond d'écran",
-                        "Blocage Panneau Config",
-                        "Désactivation CMD"
+                        "GPO 1 : Mappage automatique d'un lecteur réseau partagé",
+                        "GPO 2 : Fond d'écran d'entreprise imposé (G.TECH)",
+                        "GPO 3 : Blocage du Panneau de configuration",
+                        "GPO 4 : Désactivation de l'invite de commandes (CMD)"
                     ],
-                    environnement: ["Windows Server 2022", "Active Directory", "GPO", "Windows 10"]
+                    environnement: ["Windows Server 2022", "Active Directory", "GPMC", "Windows 10"]
                 },
                 { 
                     id: 6,
                     type: 'E5', 
-                    titre: "Contrôleur de Domaine & Services", 
-                    desc: "Déploiement d'une forêt Active Directory sécurisée avec services DNS/DHCP sur Proxmox.", 
+                    titre: "Administration distante SSH avec clés asymétriques (Linux)", 
+                    desc: "Sécurisation de l'administration à distance d'un serveur Debian 12 en remplaçant l'authentification par mot de passe par des clés RSA 4096 bits, avec durcissement SSH et configuration du pare-feu UFW.", 
                     date: "Projet GTECH",
-                    pdfUrl: "E6_AD_DS.pdf", 
+                    pdfUrl: "E5_SSH.pdf", 
                     objectifs: [
-                        "Installation AD DS (Forêt)",
-                        "Config DNS & DHCP",
-                        "Intégration Postes",
-                        "Virtualisation"
+                        "Création d'un utilisateur admin & groupe IT avec droits sudo",
+                        "Génération de clés RSA 4096 bits et transfert sur le serveur",
+                        "Durcissement SSH : port 2222, root interdit, mot de passe désactivé",
+                        "Configuration du pare-feu UFW et tests de connexion"
                     ],
-                    environnement: ["Windows Server 2022", "AD DS", "Proxmox", "Windows 10"]
+                    environnement: ["Debian 12", "OpenSSH", "UFW", "PowerShell (client Windows)"]
                 },
                 { 
                     id: 7,
                     type: 'E5', 
-                    titre: "Routage Inter-Sites", 
-                    desc: "Interconnexion sécurisée de deux sites distants via routage statique.", 
+                    titre: "Haute disponibilité réseau avec HSRP (Redondance & Load Balancing)", 
+                    desc: "Mise en place d'une architecture de haute disponibilité avec deux routeurs Cisco et le protocole HSRP, garantissant la redondance de la passerelle et une répartition de charge actif/actif entre 2 VLANs.", 
                     date: "Projet GTECH",
-                    pdfUrl: "E6_Routage.pdf", 
+                    pdfUrl: "E6_HSRP.pdf", 
                     objectifs: [
-                        "Routage Statique",
-                        "Interconnexion Sites",
-                        "Tests Connectivité",
-                        "Architecture Cisco"
+                        "Configuration HSRP en mode Active/Standby sur 2 groupes (VLAN 10 & 20)",
+                        "Load Balancing actif/actif : chaque routeur est chef d'un VLAN",
+                        "Test de bascule automatique (Failover) en cas de panne",
+                        "Segmentation Layer 2 avec VLANs dédiés par switch"
                     ],
-                    environnement: ["Routeurs Cisco", "IOS", "Packet Tracer", "Réseau WAN"]
+                    environnement: ["Cisco Routeur 2911", "Cisco Switch 2960", "Packet Tracer", "HSRP"]
                 }
             ];
 
