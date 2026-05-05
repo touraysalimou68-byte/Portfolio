@@ -1,470 +1,513 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Salimou Touray</title>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        sisr: {
-                            dark: '#0f172a', // Slate 900
-                            card: '#1e293b', // Slate 800
-                            accent: '#10b981', // Emerald 500 (Vert Cyber)
-                            text: '#e2e8f0'  // Slate 200
-                        }
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.5s ease-out',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0', transform: 'translateY(10px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
-                    }
-                }
-            }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio - Salimou Touray</title>
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        sisr: {
+          dark: '#0f172a',
+          card: '#1e293b',
+          accent: '#10b981',
+          text: '#e2e8f0'
         }
-    </script>
-    <style>
-        body { background-color: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .glass-panel {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         }
-        .nav-item.active {
-            color: #10b981;
-            border-bottom: 2px solid #10b981;
-        }
-        /* Scrollbar perso */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
-    </style>
+      }
+    }
+  }
+}
+</script>
+<style>
+body { background-color: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+.glass-panel {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.nav-item.active {
+  color: #10b981;
+  border-bottom: 2px solid #10b981;
+}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #0f172a; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #475569; }
+</style>
 </head>
 <body>
-    <div id="root"></div>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
 
-    <script type="text/babel">
-        const { useState } = React;
+const ServerIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>;
+const ShieldIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>;
+const EyeIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>;
+const UserIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>;
+const MailIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>;
+const LinkedinIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>;
+const XIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
+const CheckIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
+const FileIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>;
 
-        // --- ICONES ---
-        const ServerIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>;
-        const ShieldIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>;
-        const EyeIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>;
-        const UserIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>;
-        const MailIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>;
-        const LinkedinIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>;
-        const XIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
-        const CheckIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
-        const FileIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>;
+const Modal = ({ isOpen, onClose, data }) => {
+  if (!isOpen || !data) return null;
+  React.useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => document.body.style.overflow = 'unset';
+  }, []);
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose}></div>
+      <div className="bg-slate-900 border border-slate-700 w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl relative z-10 shadow-2xl animate-fade-in">
+        <button onClick={onClose} className="absolute top-4 right-4 p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition-colors">
+          <XIcon />
+        </button>
+        <div className="p-8">
+          <div className="flex items-center gap-3 mb-6">
+            <span className={`px-3 py-1 rounded-full text-xs font-mono font-bold border ${data.type === 'E6' ? 'bg-purple-500/20 text-purple-400 border-purple-500/30' : 'bg-sisr-accent/20 text-sisr-accent border-sisr-accent/30'}`}>
+              {data.type === 'E6' ? 'PROJET E6' : 'PROJET E5'}
+            </span>
+            <span className="text-slate-500 text-sm">{data.date || "Projet GTECH"}</span>
+          </div>
+          <h2 className="text-3xl font-bold text-white mb-4">{data.titre}</h2>
+          <p className="text-lg text-slate-300 mb-8 border-l-4 border-slate-600 pl-4 italic">{data.desc}</p>
+          <div className="space-y-6">
+            {data.pdfUrl && (
+              <div className="mb-6">
+                <a href={data.pdfUrl} target="_blank" className={`flex items-center justify-center gap-3 w-full font-bold py-4 rounded-xl transition-all transform hover:scale-[1.02] shadow-lg ${data.type === 'E6' ? 'bg-purple-600 hover:bg-purple-500 shadow-purple-500/20' : 'bg-sisr-accent hover:bg-emerald-400 text-slate-900 shadow-emerald-500/20'} text-white`}>
+                  <FileIcon />
+                  Voir le Dossier Complet (PDF)
+                </a>
+                <p className="text-center text-slate-500 text-xs mt-2">Cliquez pour ouvrir le document PDF associé</p>
+              </div>
+            )}
+            {data.objectifs && (
+              <div>
+                <h3 className="text-white font-bold mb-3">🎯 Objectifs & Réalisations</h3>
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {data.objectifs.map((obj, i) => (
+                    <li key={i} className="flex items-start gap-2 text-slate-400 text-sm bg-slate-800/30 p-3 rounded-lg">
+                      <span className={data.type === 'E6' ? 'text-purple-400' : 'text-sisr-accent'}><CheckIcon /></span>
+                      {obj}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {data.environnement && (
+              <div>
+                <h3 className="text-white font-bold mb-3">💻 Environnement Technique</h3>
+                <div className="flex flex-wrap gap-2">
+                  {data.environnement.map((env, i) => (
+                    <span key={i} className="px-3 py-1 bg-slate-800 border border-slate-600 rounded-full text-xs text-slate-300">{env}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-        // --- COMPOSANT MODAL (Pour les détails) ---
-        const Modal = ({ isOpen, onClose, data }) => {
-            if (!isOpen || !data) return null;
-            
-            React.useEffect(() => {
-                document.body.style.overflow = 'hidden';
-                return () => document.body.style.overflow = 'unset';
-            }, []);
+function App() {
+  const [page, setPage] = useState('accueil');
+  const [selectedProject, setSelectedProject] = useState(null);
 
-            return (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                    <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose}></div>
-                    <div className="bg-slate-900 border border-slate-700 w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl relative z-10 shadow-2xl animate-fade-in">
-                        <button onClick={onClose} className="absolute top-4 right-4 p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition-colors">
-                            <XIcon />
-                        </button>
-                        
-                        <div className="p-8">
-                            <div className="flex items-center gap-3 mb-6">
-                                <span className={`px-3 py-1 rounded-full text-xs font-mono font-bold border ${data.type === 'E6' ? 'bg-purple-500/20 text-purple-400 border-purple-500/30' : 'bg-sisr-accent/20 text-sisr-accent border-sisr-accent/30'}`}>
-                                    {data.type === 'E6' ? 'PROJET E6' : 'PROJET E5'}
-                                </span>
-                                <span className="text-slate-500 text-sm">{data.date || "Projet GTECH"}</span>
-                            </div>
-                            
-                            <h2 className="text-3xl font-bold text-white mb-4">{data.titre}</h2>
-                            <p className="text-lg text-slate-300 mb-8 border-l-4 border-slate-600 pl-4 italic">
-                                {data.desc}
-                            </p>
+  const e5List = [
+    {
+      id: 1, type: 'E5',
+      titre: "Segmentation VLAN & Routage Inter-VLAN",
+      desc: "Segmentation d'un réseau d'entreprise en 4 VLANs (Administration, RH, Finance, IT) avec routage inter-VLAN via la méthode Router-on-a-Stick et attribution automatique des adresses IP par DHCP.",
+      date: "Projet GTECH", pdfUrl: "INTER-VLAN S.pdf",
+      objectifs: ["Création & affectation des VLANs (10/20/30/40)", "Routage inter-VLAN (Router-on-a-Stick / dot1Q)", "Configuration DHCP par VLAN sur le routeur", "Sécurisation des ports en mode Access & Trunk"],
+      environnement: ["Cisco Routeur 2911", "Cisco Switch 2960", "Packet Tracer", "IOS Cisco"]
+    },
+    {
+      id: 2, type: 'E5',
+      titre: "Filtrage réseau par Listes de Contrôle d'Accès (ACL)",
+      desc: "Déploiement d'ACL étendues sur un routeur Cisco pour autoriser uniquement le trafic HTTP vers un serveur web et bloquer tout accès vers un serveur hébergeant des données sensibles.",
+      date: "Projet GTECH", pdfUrl: "ACL S.pdf",
+      objectifs: ["Création d'ACL étendues (liste 100)", "Autorisation trafic HTTP (port 80) vers Serveur 1", "Blocage total des accès vers Serveur 2", "Validation par tests Ping, Telnet & navigateur"],
+      environnement: ["Cisco Routeur 2901", "Cisco Switch 2960", "Packet Tracer", "IOS Cisco"]
+    },
+    {
+      id: 3, type: 'E5',
+      titre: "Infrastructure réseau sécurisée : pfSense & Proxmox",
+      desc: "Déploiement d'un réseau physique sécurisé pour une PME avec un pare-feu matériel pfSense assurant la segmentation WAN/LAN et un hyperviseur Proxmox VE pour l'hébergement de futures machines virtuelles.",
+      date: "Projet GTECH", pdfUrl: "PROXMOX PFSENSE S.pdf",
+      objectifs: ["Installation de pfSense (pare-feu / passerelle WAN→LAN)", "Installation et configuration de Proxmox VE (hyperviseur)", "Plan d'adressage IP statique (192.168.10.0/24)", "Tests de connectivité LAN, passerelle et sortie Internet"],
+      environnement: ["pfSense 2.7 (FreeBSD)", "Proxmox VE 9", "Switch Gigabit", "Réseau physique"]
+    },
+    {
+      id: 4, type: 'E5',
+      titre: "Contrôleur de Domaine Active Directory & Services DNS/DHCP",
+      desc: "Déploiement d'une infrastructure Active Directory complète sur Proxmox VE avec un pare-feu pfSense virtuel, un contrôleur de domaine Windows Server 2022 (AD DS), un serveur DNS et DHCP, et l'intégration d'un poste client Windows 10 au domaine.",
+      date: "Projet GTECH", pdfUrl: "ADDS S.pdf",
+      objectifs: ["Déploiement pfSense virtuel (segmentation WAN/LAN)", "Installation Windows Server 2022 & promotion contrôleur de domaine", "Configuration DNS interne (forêt labo.local) & DHCP", "Jonction d'un poste Windows 10 au domaine"],
+      environnement: ["Windows Server 2022", "Proxmox VE", "pfSense virtuel", "Windows 10"]
+    },
+    {
+      id: 5, type: 'E5',
+      titre: "Stratégies de Groupe (GPO) & Sécurisation des postes",
+      desc: "Mise en place de 4 GPO sur un contrôleur de domaine Active Directory pour automatiser le mappage de lecteurs réseau, imposer un fond d'écran d'entreprise et restreindre l'accès aux outils système sensibles.",
+      date: "Projet GTECH", pdfUrl: "GPO S.pdf",
+      objectifs: ["GPO 1 : Mappage automatique d'un lecteur réseau partagé", "GPO 2 : Fond d'écran d'entreprise imposé (G.TECH)", "GPO 3 : Blocage du Panneau de configuration", "GPO 4 : Désactivation de l'invite de commandes (CMD)"],
+      environnement: ["Windows Server 2022", "Active Directory", "GPMC", "Windows 10"]
+    },
+    {
+      id: 6, type: 'E5',
+      titre: "Administration distante SSH avec clés asymétriques (Linux)",
+      desc: "Sécurisation de l'administration à distance d'un serveur Debian 12 en remplaçant l'authentification par mot de passe par des clés RSA 4096 bits, avec durcissement SSH et configuration du pare-feu UFW.",
+      date: "Projet GTECH", pdfUrl: "SSH S.pdf",
+      objectifs: ["Création d'un utilisateur admin & groupe IT avec droits sudo", "Génération de clés RSA 4096 bits et transfert sur le serveur", "Durcissement SSH : port 2222, root interdit, mot de passe désactivé", "Configuration du pare-feu UFW et tests de connexion"],
+      environnement: ["Debian 12", "OpenSSH", "UFW", "PowerShell (client Windows)"]
+    },
+    {
+      id: 7, type: 'E5',
+      titre: "Haute disponibilité réseau avec HSRP (Redondance & Load Balancing)",
+      desc: "Mise en place d'une architecture de haute disponibilité avec deux routeurs Cisco et le protocole HSRP, garantissant la redondance de la passerelle et une répartition de charge actif/actif entre 2 VLANs.",
+      date: "Projet GTECH", pdfUrl: "HSRP S.pdf",
+      objectifs: ["Configuration HSRP en mode Active/Standby sur 2 groupes (VLAN 10 & 20)", "Load Balancing actif/actif : chaque routeur est chef d'un VLAN", "Test de bascule automatique (Failover) en cas de panne", "Segmentation Layer 2 avec VLANs dédiés par switch"],
+      environnement: ["Cisco Routeur 2911", "Cisco Switch 2960", "Packet Tracer", "HSRP"]
+    }
+  ];
 
-                            <div className="space-y-6">
-                                {data.pdfUrl && (
-                                    <div className="mb-6">
-                                        <a 
-                                            href={data.pdfUrl} 
-                                            target="_blank" 
-                                            className={`flex items-center justify-center gap-3 w-full font-bold py-4 rounded-xl transition-all transform hover:scale-[1.02] shadow-lg ${data.type === 'E6' ? 'bg-purple-600 hover:bg-purple-500 shadow-purple-500/20' : 'bg-sisr-accent hover:bg-emerald-400 text-slate-900 shadow-emerald-500/20'} text-white`}
-                                        >
-                                            <FileIcon />
-                                            Voir le Dossier Complet (PDF)
-                                        </a>
-                                        <p className="text-center text-slate-500 text-xs mt-2">Cliquez pour ouvrir le document PDF associé</p>
-                                    </div>
-                                )}
+  // --- E6 CORRIGÉ avec les vrais projets ---
+  const e6List = [
+    {
+      id: 1, type: 'E6',
+      titre: "Système de Ticketing centralisé (GLPI) sous infrastructure sécurisée",
+      desc: "Déploiement d'un serveur GLPI sur une VM Debian 12, isolé derrière un pare-feu pfSense virtualisé sous ESXi. Mise en place de la pile LAMP, configuration du routage WAN/LAN et sécurisation de l'accès administrateur via MFA.",
+      date: "Mars 2026 — CFA INSTA",
+      pdfUrl: "GLPI_PFSENSE_S.pdf",
+      objectifs: [
+        "Déploiement du pare-feu pfSense (WAN 20.0.0.125 / LAN 192.168.55.0/24)",
+        "Installation Debian 12 en VM avec IP statique (192.168.55.54)",
+        "Installation pile LAMP (Apache, MariaDB, PHP) et déploiement GLPI",
+        "Sécurisation accès administrateur par MFA (authentification multifacteur)"
+      ],
+      environnement: ["ESXi (Hyperviseur)", "pfSense", "Debian 12", "GLPI / LAMP", "MariaDB", "Apache"]
+    },
+    {
+      id: 2, type: 'E6',
+      titre: "Infrastructure réseau segmentée avec accès WAN et service DHCP",
+      desc: "Restructuration complète du réseau local de Novalink : segmentation en VLANs, routage inter-VLAN (Router-on-a-Stick), distribution automatique des IP par DHCP et accès WAN via NAT sur routeur Cisco.",
+      date: "Mars 2026 — CFA INSTA",
+      pdfUrl: "Projet_E6_Reseau.pdf",
+      objectifs: [
+        "Création des VLAN 2 et VLAN 3 sur Cisco 2960 (port Trunk 802.1Q)",
+        "Routage inter-VLAN Router-on-a-Stick sur Cisco 1841",
+        "Configuration DHCP sur le routeur (2 pools distincts par VLAN)",
+        "Accès WAN via NAT et validation par tests Ping / IPConfig"
+      ],
+      environnement: ["Cisco 1841", "Cisco 2960", "Packet Tracer", "IOS Cisco", "NAT", "DHCP"]
+    }
+  ];
 
-                                {data.objectifs && (
-                                    <div>
-                                        <h3 className="text-white font-bold mb-3">🎯 Objectifs & Réalisations</h3>
-                                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                            {data.objectifs.map((obj, i) => (
-                                                <li key={i} className="flex items-start gap-2 text-slate-400 text-sm bg-slate-800/30 p-3 rounded-lg">
-                                                    <span className={data.type === 'E6' ? 'text-purple-400' : 'text-sisr-accent'}><CheckIcon /></span>
-                                                    {obj}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                )}
-                                
-                                {data.environnement && (
-                                    <div>
-                                         <h3 className="text-white font-bold mb-3">💻 Environnement Technique</h3>
-                                         <div className="flex flex-wrap gap-2">
-                                            {data.environnement.map((env, i) => (
-                                                <span key={i} className="px-3 py-1 bg-slate-800 border border-slate-600 rounded-full text-xs text-slate-300">{env}</span>
-                                            ))}
-                                         </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+  // --- FICHES DE VEILLE ---
+  const veilleFiches = [
+    {
+      id: 1,
+      date: "Janvier 2026",
+      titre: "L'IA Générative : nouvelle arme des cyberattaquants",
+      type: "Veille sécurité",
+      typeColor: "text-red-400 bg-red-500/10 border-red-500/30",
+      dotColor: "bg-red-400",
+      source: "The Hacker News — ANSSI",
+      sourceUrl: "https://thehackernews.com",
+      criticite: "Élevé",
+      criticiteColor: "text-red-400",
+      resume: "L'IA générative (ChatGPT, Gemini) est désormais exploitée par les attaquants pour industrialiser le phishing, générer des malwares polymorphes et contourner les filtres de détection basés sur des signatures statiques.",
+      impact: "Toutes les organisations exposées à des emails externes, en particulier les PME sans solution anti-phishing avancée.",
+      action: "Déployer des filtres anti-phishing basés sur l'IA, former les utilisateurs aux nouvelles formes d'ingénierie sociale.",
+      lienFormation: "Lien direct avec les cours de sécurité réseau et la gestion des politiques de filtrage (GPO, pare-feu pfSense)."
+    },
+    {
+      id: 2,
+      date: "Février 2026",
+      titre: "Deepfakes & usurpation d'identité en temps réel",
+      type: "Veille sécurité",
+      typeColor: "text-orange-400 bg-orange-500/10 border-orange-500/30",
+      dotColor: "bg-orange-400",
+      source: "BleepingComputer — Europol",
+      sourceUrl: "https://bleepingcomputer.com",
+      criticite: "Critique",
+      criticiteColor: "text-orange-400",
+      resume: "Le clonage vocal et vidéo en temps réel permet à des attaquants de se faire passer pour un dirigeant lors d'un appel (arnaque au président). Des outils accessibles au grand public permettent de générer une voix clonée en moins de 10 secondes d'audio source.",
+      impact: "Entreprises exposées aux fraudes financières par usurpation d'identité de dirigeants. Pertes estimées à plusieurs millions d'euros en France en 2025.",
+      action: "Mettre en place des codes de vérification verbaux internes, sensibiliser les équipes financières, implémenter le MFA sur tous les accès critiques.",
+      lienFormation: "Mis en pratique lors du déploiement de GLPI avec MFA obligatoire pour l'administrateur (réalisation E6)."
+    },
+    {
+      id: 3,
+      date: "Mars 2026",
+      titre: "NIS2 : nouvelles obligations de cybersécurité en France",
+      type: "Veille réglementaire",
+      typeColor: "text-blue-400 bg-blue-500/10 border-blue-500/30",
+      dotColor: "bg-blue-400",
+      source: "ANSSI — CNIL",
+      sourceUrl: "https://cert.ssi.gouv.fr",
+      criticite: "Moyen",
+      criticiteColor: "text-blue-400",
+      resume: "La directive européenne NIS2, transposée en France, étend les obligations de cybersécurité à plus de 10 000 entités (dont les ETI et PME des secteurs critiques). Elle impose une déclaration d'incident sous 24h et des audits réguliers.",
+      impact: "Les entreprises concernées doivent mettre en conformité leur SI, documenter leurs pratiques de sécurité et former leur personnel.",
+      action: "Suivre les bulletins de l'ANSSI, anticiper les audits de conformité, documenter les procédures de gestion d'incidents.",
+      lienFormation: "En lien avec les cours d'administration système et la mise en place de politiques de sécurité (GPO, pare-feu, SSH)."
+    },
+    {
+      id: 4,
+      date: "Avril 2026",
+      titre: "Phishing industrialisé par LLM : détection et contre-mesures",
+      type: "Veille technologique",
+      typeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30",
+      dotColor: "bg-emerald-400",
+      source: "Krebs on Security — SANS Institute",
+      sourceUrl: "https://krebsonsecurity.com",
+      criticite: "Élevé",
+      criticiteColor: "text-red-400",
+      resume: "Les LLM (grands modèles de langage) permettent de générer des campagnes de phishing parfaitement rédigées, contextualisées et personnalisées à grande échelle. Les outils de détection classiques basés sur les fautes d'orthographe deviennent obsolètes.",
+      impact: "Hausse de 60% des tentatives de phishing réussies en 2025 selon le rapport CERT-FR. Cible prioritaire : les identifiants d'accès aux SI d'entreprise.",
+      action: "Adopter des solutions de détection comportementale (EDR/XDR), mettre en place le SPF/DKIM/DMARC sur les domaines, sensibiliser les utilisateurs.",
+      lienFormation: "En lien avec la sécurisation des accès SSH (clés RSA, désactivation mot de passe) et la gestion des ACL réseau."
+    }
+  ];
+
+  const renderContent = () => {
+    switch(page) {
+      case 'accueil':
+        return (
+          <div className="animate-fade-in space-y-12">
+            <div className="text-center pt-10">
+              <span className="inline-block py-1 px-3 rounded-full bg-sisr-accent/20 text-sisr-accent text-sm font-mono mb-4 border border-sisr-accent/50">BTS SIO Option SISR</span>
+              <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">Salimou Touray</h1>
+              <p className="text-xl text-slate-400 max-w-2xl mx-auto italic">
+                "Passionné par l'administration système et la sécurisation des infrastructures numériques."
+              </p>
+            </div>
+            <div className="max-w-3xl mx-auto">
+              <div className="glass-panel p-8 rounded-2xl relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-sisr-accent/10 rounded-full blur-3xl group-hover:bg-sisr-accent/20 transition-all"></div>
+                <div className="flex flex-col md:flex-row items-center gap-8 relative z-10">
+                  <div className="w-24 h-24 bg-gradient-to-br from-slate-700 to-slate-900 rounded-full flex items-center justify-center border-2 border-sisr-accent shadow-lg shadow-sisr-accent/20">
+                    <UserIcon />
+                  </div>
+                  <div className="flex-1 text-center md:text-left space-y-3">
+                    <h2 className="text-2xl font-bold text-white">Mes Coordonnées</h2>
+                    <div className="space-y-4">
+                      <a href="mailto:TouraySalimou68@gmail.com" className="flex items-center justify-center md:justify-start gap-3 text-slate-300 hover:text-sisr-accent transition-all hover:bg-slate-800/50 p-2 rounded-lg -ml-2">
+                        <div className="p-2 bg-slate-800 rounded-md"><MailIcon /></div>
+                        <span className="font-medium">TouraySalimou68@gmail.com</span>
+                      </a>
+                      <a href="https://www.linkedin.com/in/salimou-touray-02ba06327/" target="_blank" className="flex items-center justify-center md:justify-start gap-3 text-slate-300 hover:text-blue-400 transition-all hover:bg-slate-800/50 p-2 rounded-lg -ml-2">
+                        <div className="p-2 bg-slate-800 rounded-md"><LinkedinIcon /></div>
+                        <span className="font-medium">Profil LinkedIn</span>
+                      </a>
                     </div>
+                  </div>
                 </div>
-            );
-        };
+              </div>
+            </div>
+          </div>
+        );
 
-        function App() {
-            const [page, setPage] = useState('accueil');
-            const [selectedProject, setSelectedProject] = useState(null);
-
-            // --- DONNEES E5 (Tous les projets) ---
-            const e5List = [
-                { 
-                    id: 1,
-                    type: 'E5', 
-                    titre: "Segmentation VLAN & Routage Inter-VLAN", 
-                    desc: "Segmentation d'un réseau d'entreprise en 4 VLANs (Administration, RH, Finance, IT) avec routage inter-VLAN via la méthode Router-on-a-Stick et attribution automatique des adresses IP par DHCP.", 
-                    date: "Projet GTECH",
-                    pdfUrl: "INTER-VLAN S.pdf", 
-                    objectifs: [
-                        "Création & affectation des VLANs (10/20/30/40)",
-                        "Routage inter-VLAN (Router-on-a-Stick / dot1Q)",
-                        "Configuration DHCP par VLAN sur le routeur",
-                        "Sécurisation des ports en mode Access & Trunk"
-                    ],
-                    environnement: ["Cisco Routeur 2911", "Cisco Switch 2960", "Packet Tracer", "IOS Cisco"]
-                },
-                { 
-                    id: 2,
-                    type: 'E5', 
-                    titre: "Filtrage réseau par Listes de Contrôle d'Accès (ACL)", 
-                    desc: "Déploiement d'ACL étendues sur un routeur Cisco pour autoriser uniquement le trafic HTTP vers un serveur web et bloquer tout accès vers un serveur hébergeant des données sensibles.", 
-                    date: "Projet GTECH",
-                    pdfUrl: "ACL S.pdf", 
-                    objectifs: [
-                        "Création d'ACL étendues (liste 100)",
-                        "Autorisation trafic HTTP (port 80) vers Serveur 1",
-                        "Blocage total des accès vers Serveur 2",
-                        "Validation par tests Ping, Telnet & navigateur"
-                    ],
-                    environnement: ["Cisco Routeur 2901", "Cisco Switch 2960", "Packet Tracer", "IOS Cisco"]
-                },
-                { 
-                    id: 3,
-                    type: 'E5', 
-                    titre: "Infrastructure réseau sécurisée : pfSense & Proxmox", 
-                    desc: "Déploiement d'un réseau physique sécurisé pour une PME avec un pare-feu matériel pfSense assurant la segmentation WAN/LAN et un hyperviseur Proxmox VE pour l'hébergement de futures machines virtuelles.", 
-                    date: "Projet GTECH",
-                    pdfUrl: "PROXMOX PFSENSE S.pdf", 
-                    objectifs: [
-                        "Installation de pfSense (pare-feu / passerelle WAN→LAN)",
-                        "Installation et configuration de Proxmox VE (hyperviseur)",
-                        "Plan d'adressage IP statique (192.168.10.0/24)",
-                        "Tests de connectivité LAN, passerelle et sortie Internet"
-                    ],
-                    environnement: ["pfSense 2.7 (FreeBSD)", "Proxmox VE 9", "Switch Gigabit", "Réseau physique"]
-                },
-                { 
-                    id: 4,
-                    type: 'E5', 
-                    titre: "Contrôleur de Domaine Active Directory & Services DNS/DHCP", 
-                    desc: "Déploiement d'une infrastructure Active Directory complète sur Proxmox VE avec un pare-feu pfSense virtuel, un contrôleur de domaine Windows Server 2022 (AD DS), un serveur DNS et DHCP, et l'intégration d'un poste client Windows 10 au domaine.", 
-                    date: "Projet GTECH",
-                    pdfUrl: "ADDS S.pdf", 
-                    objectifs: [
-                        "Déploiement pfSense virtuel (segmentation WAN/LAN)",
-                        "Installation Windows Server 2022 & promotion contrôleur de domaine",
-                        "Configuration DNS interne (forêt labo.local) & DHCP",
-                        "Jonction d'un poste Windows 10 au domaine"
-                    ],
-                    environnement: ["Windows Server 2022", "Proxmox VE", "pfSense virtuel", "Windows 10"]
-                },
-                { 
-                    id: 5,
-                    type: 'E5', 
-                    titre: "Stratégies de Groupe (GPO) & Sécurisation des postes", 
-                    desc: "Mise en place de 4 GPO sur un contrôleur de domaine Active Directory pour automatiser le mappage de lecteurs réseau, imposer un fond d'écran d'entreprise et restreindre l'accès aux outils système sensibles.", 
-                    date: "Projet GTECH",
-                    pdfUrl: "GPO S.pdf", 
-                    objectifs: [
-                        "GPO 1 : Mappage automatique d'un lecteur réseau partagé",
-                        "GPO 2 : Fond d'écran d'entreprise imposé (G.TECH)",
-                        "GPO 3 : Blocage du Panneau de configuration",
-                        "GPO 4 : Désactivation de l'invite de commandes (CMD)"
-                    ],
-                    environnement: ["Windows Server 2022", "Active Directory", "GPMC", "Windows 10"]
-                },
-                { 
-                    id: 6,
-                    type: 'E5', 
-                    titre: "Administration distante SSH avec clés asymétriques (Linux)", 
-                    desc: "Sécurisation de l'administration à distance d'un serveur Debian 12 en remplaçant l'authentification par mot de passe par des clés RSA 4096 bits, avec durcissement SSH et configuration du pare-feu UFW.", 
-                    date: "Projet GTECH",
-                    pdfUrl: "SSH S.pdf", 
-                    objectifs: [
-                        "Création d'un utilisateur admin & groupe IT avec droits sudo",
-                        "Génération de clés RSA 4096 bits et transfert sur le serveur",
-                        "Durcissement SSH : port 2222, root interdit, mot de passe désactivé",
-                        "Configuration du pare-feu UFW et tests de connexion"
-                    ],
-                    environnement: ["Debian 12", "OpenSSH", "UFW", "PowerShell (client Windows)"]
-                },
-                { 
-                    id: 7,
-                    type: 'E5', 
-                    titre: "Haute disponibilité réseau avec HSRP (Redondance & Load Balancing)", 
-                    desc: "Mise en place d'une architecture de haute disponibilité avec deux routeurs Cisco et le protocole HSRP, garantissant la redondance de la passerelle et une répartition de charge actif/actif entre 2 VLANs.", 
-                    date: "Projet GTECH",
-                    pdfUrl: "HSRP S.pdf", 
-                    objectifs: [
-                        "Configuration HSRP en mode Active/Standby sur 2 groupes (VLAN 10 & 20)",
-                        "Load Balancing actif/actif : chaque routeur est chef d'un VLAN",
-                        "Test de bascule automatique (Failover) en cas de panne",
-                        "Segmentation Layer 2 avec VLANs dédiés par switch"
-                    ],
-                    environnement: ["Cisco Routeur 2911", "Cisco Switch 2960", "Packet Tracer", "HSRP"]
-                }
-            ];
-
-            // --- DONNEES E6 (COMPLET) ---
-            const e6List = [
-                 { 
-                     id: 1, 
-                     type: 'E6',
-                     titre: "Infrastructure Réseau & Adressage", 
-                     desc: "Mise en place d'une infrastructure réseau locale comprenant un routeur, un switch et des postes clients, avec plan d'adressage statique.", 
-                     date: "Juillet 2025 - Décembre 2025",
-                     pdfUrl: "Projet_E6_Reseau.pdf", 
-                     objectifs: [
-                         "Installation et câblage (Routeur/Switch)",
-                         "Configuration IP Statique & Passerelles",
-                         "Tests de connectivité (Ping)",
-                         "Gestion de réseau local (LAN)"
-                     ],
-                     environnement: ["Cisco 1841", "Cisco 2960", "Windows/Linux", "CLI Cisco"]
-                 },
-                 { 
-                     id: 2, 
-                     type: 'E6',
-                     titre: "Infrastructure Active Directory", 
-                     desc: "Déploiement d'un contrôleur de domaine Windows Server pour centraliser la gestion des utilisateurs et sécuriser les accès.", 
-                     date: "Juillet 2025 - Décembre 2025",
-                     pdfUrl: "Projet_E6_AD_DS.pdf", 
-                     objectifs: [
-                         "Installation Rôle AD DS & DNS",
-                         "Promotion Contrôleur de Domaine",
-                         "Gestion Utilisateurs & OUs",
-                         "Jonction Client au Domaine"
-                     ],
-                     environnement: ["Windows Server 2022", "Active Directory", "DNS", "Windows 10"]
-                 }
-            ];
-
-            const renderContent = () => {
-                switch(page) {
-                    case 'accueil':
-                        return (
-                            <div className="animate-fade-in space-y-12">
-                                <div className="text-center pt-10">
-                                    <span className="inline-block py-1 px-3 rounded-full bg-sisr-accent/20 text-sisr-accent text-sm font-mono mb-4 border border-sisr-accent/50">BTS SIO Option SISR</span>
-                                    <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">Salimou Touray</h1>
-                                    <p className="text-xl text-slate-400 max-w-2xl mx-auto italic">
-                                        "Passionné par l'administration système et la sécurisation des infrastructures numériques."
-                                    </p>
-                                </div>
-                                <div className="max-w-3xl mx-auto">
-                                    <div className="glass-panel p-8 rounded-2xl relative overflow-hidden group">
-                                        <div className="absolute top-0 right-0 w-32 h-32 bg-sisr-accent/10 rounded-full blur-3xl group-hover:bg-sisr-accent/20 transition-all"></div>
-                                        <div className="flex flex-col md:flex-row items-center gap-8 relative z-10">
-                                            <div className="w-24 h-24 bg-gradient-to-br from-slate-700 to-slate-900 rounded-full flex items-center justify-center border-2 border-sisr-accent shadow-lg shadow-sisr-accent/20">
-                                                <UserIcon />
-                                            </div>
-                                            <div className="flex-1 text-center md:text-left space-y-3">
-                                                <h2 className="text-2xl font-bold text-white">Mes Coordonnées</h2>
-                                                <div className="space-y-4">
-                                                    <a href="mailto:TouraySalimou68@gmail.com" className="flex items-center justify-center md:justify-start gap-3 text-slate-300 hover:text-sisr-accent transition-all hover:bg-slate-800/50 p-2 rounded-lg -ml-2">
-                                                        <div className="p-2 bg-slate-800 rounded-md"><MailIcon /></div>
-                                                        <span className="font-medium">TouraySalimou68@gmail.com</span>
-                                                    </a>
-                                                    <a href="https://www.linkedin.com/in/salimou-touray-02ba06327/" target="_blank" className="flex items-center justify-center md:justify-start gap-3 text-slate-300 hover:text-blue-400 transition-all hover:bg-slate-800/50 p-2 rounded-lg -ml-2">
-                                                        <div className="p-2 bg-slate-800 rounded-md"><LinkedinIcon /></div>
-                                                        <span className="font-medium">Profil LinkedIn</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                    
-                    case 'e5':
-                        return (
-                            <div className="animate-fade-in">
-                                <div className="mb-8 flex items-center gap-3">
-                                    <div className="p-2 bg-sisr-accent/20 rounded-lg text-sisr-accent"><ServerIcon /></div>
-                                    <h2 className="text-3xl font-bold text-white">Épreuve E5 <span className="text-lg font-normal text-slate-400 ml-2">(Infrastructure)</span></h2>
-                                </div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    {e5List.map((item) => (
-                                        <div 
-                                            key={item.id} 
-                                            onClick={() => setSelectedProject(item)}
-                                            className="glass-panel p-6 rounded-xl hover:border-sisr-accent/50 transition-all cursor-pointer group flex flex-col h-full"
-                                        >
-                                            <div className="text-sisr-accent mb-3 font-mono text-sm font-bold">PROJET E5</div>
-                                            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-sisr-accent transition-colors">{item.titre}</h3>
-                                            <p className="text-slate-400 text-sm mb-4 line-clamp-3 flex-grow">{item.desc}</p>
-                                            <div className="mt-auto pt-4 border-t border-slate-700/50 flex justify-between items-center">
-                                                <div className="flex gap-2">
-                                                    {item.environnement.slice(0, 2).map((tag, i) => (
-                                                        <span key={i} className="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-400">{tag}</span>
-                                                    ))}
-                                                </div>
-                                                <span className="text-xs uppercase tracking-wider font-bold text-sisr-accent opacity-0 group-hover:opacity-100 transition-opacity">Voir &rarr;</span>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        );
-
-                    case 'e6':
-                        return (
-                            <div className="animate-fade-in">
-                                <div className="mb-8 flex items-center gap-3">
-                                    <div className="p-2 bg-purple-500/20 rounded-lg text-purple-400"><ShieldIcon /></div>
-                                    <h2 className="text-3xl font-bold text-white">Épreuve E6 <span className="text-lg font-normal text-slate-400 ml-2">(Projets)</span></h2>
-                                </div>
-                                {/* NOUVELLE GRILLE POUR E6 */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    {e6List.map((item) => (
-                                        <div 
-                                            key={item.id} 
-                                            onClick={() => setSelectedProject(item)}
-                                            className="glass-panel p-6 rounded-xl hover:border-purple-500/50 transition-all cursor-pointer group flex flex-col h-full"
-                                        >
-                                            <div className="text-purple-400 mb-3 font-mono text-sm font-bold">PROJET E6</div>
-                                            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">{item.titre}</h3>
-                                            <p className="text-slate-400 text-sm mb-4 line-clamp-3 flex-grow">{item.desc}</p>
-                                            <div className="mt-auto pt-4 border-t border-slate-700/50 flex justify-between items-center">
-                                                <div className="flex gap-2">
-                                                    {item.environnement.slice(0, 2).map((tag, i) => (
-                                                        <span key={i} className="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-400">{tag}</span>
-                                                    ))}
-                                                </div>
-                                                <span className="text-xs uppercase tracking-wider font-bold text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity">Voir &rarr;</span>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        );
-
-                    case 'veille':
-                        return (
-                            <div className="animate-fade-in max-w-4xl mx-auto">
-                                <div className="mb-8 flex items-center gap-3">
-                                    <div className="p-2 bg-blue-500/20 rounded-lg text-blue-400"><EyeIcon /></div>
-                                    <h2 className="text-3xl font-bold text-white">Veille Technologique</h2>
-                                </div>
-                                <div className="glass-panel p-8 rounded-xl">
-                                    <h3 className="text-2xl font-bold text-white mb-2">L'IA Générative : Nouvelle arme des Cyberattaquants</h3>
-                                    <p className="text-slate-400 mb-6 font-medium text-lg">Analyse de l'impact de l'IA (ChatGPT, Deepfakes) sur l'Ingénierie Sociale et l'efficacité des attaques.</p>
-                                    
-                                    <div className="mt-8 mb-8">
-                                        <a href="Veille_Techno.pdf" target="_blank" className="flex items-center justify-center gap-3 w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-all transform hover:scale-[1.02] shadow-lg shadow-blue-500/20">
-                                            <FileIcon />
-                                            Lire mon Dossier de Veille (PDF)
-                                        </a>
-                                    </div>
-
-                                    <div className="space-y-8 border-l-2 border-slate-700 ml-3 pl-8 relative">
-                                        <div className="relative">
-                                            <div className="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-blue-500 border-4 border-slate-900 shadow-lg shadow-blue-500/50"></div>
-                                            <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
-                                                <h4 className="text-lg font-bold text-white text-blue-300">Phishing Industrialisé & Polymorphe</h4>
-                                                <p className="text-slate-400 text-sm mt-2">Utilisation des LLM pour générer des mails de phishing parfaits, contextuels et des malwares changeant de signature.</p>
-                                            </div>
-                                        </div>
-                                        <div className="relative">
-                                            <div className="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-sisr-accent border-4 border-slate-900 shadow-lg shadow-sisr-accent/50"></div>
-                                            <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
-                                                <h4 className="text-lg font-bold text-white text-sisr-accent">Deepfakes & Usurpation d'Identité</h4>
-                                                <p className="text-slate-400 text-sm mt-2">Clonage vocal et vidéo en temps réel pour contourner les procédures de sécurité humaines (Arnaque au président).</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                }
-            };
-
-            return (
-                <div className="min-h-screen pb-20">
-                    <nav className="sticky top-0 z-50 bg-slate-900/90 backdrop-blur border-b border-slate-800 mb-12">
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div className="flex items-center justify-between h-16">
-                                <div className="font-bold text-xl tracking-tighter text-white">PORTFOLIO</div>
-                                <div className="hidden md:flex space-x-8">
-                                    <button onClick={() => setPage('accueil')} className={`nav-item px-1 py-4 text-sm font-medium transition-colors ${page === 'accueil' ? 'active' : 'text-slate-400 hover:text-white'}`}>Accueil</button>
-                                    <button onClick={() => setPage('e5')} className={`nav-item px-1 py-4 text-sm font-medium transition-colors ${page === 'e5' ? 'active' : 'text-slate-400 hover:text-white'}`}>E5 (Infra)</button>
-                                    <button onClick={() => setPage('e6')} className={`nav-item px-1 py-4 text-sm font-medium transition-colors ${page === 'e6' ? 'active' : 'text-slate-400 hover:text-white'}`}>E6 (Projets)</button>
-                                    <button onClick={() => setPage('veille')} className={`nav-item px-1 py-4 text-sm font-medium transition-colors ${page === 'veille' ? 'active' : 'text-slate-400 hover:text-white'}`}>Veille Tech</button>
-                                </div>
-                                <div className="md:hidden flex gap-2">
-                                     <button onClick={() => setPage('accueil')} className="text-xs p-2 bg-slate-800 rounded text-slate-300">Home</button>
-                                     <button onClick={() => setPage('e5')} className="text-xs p-2 bg-slate-800 rounded text-slate-300">E5</button>
-                                     <button onClick={() => setPage('e6')} className="text-xs p-2 bg-slate-800 rounded text-slate-300">E6</button>
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
-
-                    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        {renderContent()}
-                    </main>
-
-                    {/* Le Modal qui s'ouvre quand on clique sur un projet */}
-                    <Modal isOpen={!!selectedProject} onClose={() => setSelectedProject(null)} data={selectedProject} />
+      case 'e5':
+        return (
+          <div className="animate-fade-in">
+            <div className="mb-8 flex items-center gap-3">
+              <div className="p-2 bg-sisr-accent/20 rounded-lg text-sisr-accent"><ServerIcon /></div>
+              <h2 className="text-3xl font-bold text-white">Épreuve E5 <span className="text-lg font-normal text-slate-400 ml-2">(Infrastructure)</span></h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {e5List.map((item) => (
+                <div key={item.id} onClick={() => setSelectedProject(item)} className="glass-panel p-6 rounded-xl hover:border-sisr-accent/50 transition-all cursor-pointer group flex flex-col h-full">
+                  <div className="text-sisr-accent mb-3 font-mono text-sm font-bold">PROJET E5</div>
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-sisr-accent transition-colors">{item.titre}</h3>
+                  <p className="text-slate-400 text-sm mb-4 line-clamp-3 flex-grow">{item.desc}</p>
+                  <div className="mt-auto pt-4 border-t border-slate-700/50 flex justify-between items-center">
+                    <div className="flex gap-2">
+                      {item.environnement.slice(0, 2).map((tag, i) => (
+                        <span key={i} className="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-400">{tag}</span>
+                      ))}
+                    </div>
+                    <span className="text-xs uppercase tracking-wider font-bold text-sisr-accent opacity-0 group-hover:opacity-100 transition-opacity">Voir &rarr;</span>
+                  </div>
                 </div>
-            );
-        }
+              ))}
+            </div>
+          </div>
+        );
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
+      case 'e6':
+        return (
+          <div className="animate-fade-in">
+            <div className="mb-8 flex items-center gap-3">
+              <div className="p-2 bg-purple-500/20 rounded-lg text-purple-400"><ShieldIcon /></div>
+              <h2 className="text-3xl font-bold text-white">Épreuve E6 <span className="text-lg font-normal text-slate-400 ml-2">(Projets professionnels)</span></h2>
+            </div>
+            <p className="text-slate-400 mb-8 max-w-2xl">Réalisations professionnelles effectuées au sein de l'entreprise <span className="text-white font-semibold">Novalink</span> dans le cadre du BTS SIO SISR — Session 2026.</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {e6List.map((item) => (
+                <div key={item.id} onClick={() => setSelectedProject(item)} className="glass-panel p-6 rounded-xl hover:border-purple-500/50 transition-all cursor-pointer group flex flex-col h-full">
+                  <div className="text-purple-400 mb-3 font-mono text-sm font-bold">PROJET E6 — Réalisation N°{item.id}</div>
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">{item.titre}</h3>
+                  <p className="text-slate-400 text-sm mb-4 line-clamp-3 flex-grow">{item.desc}</p>
+                  <div className="mt-auto pt-4 border-t border-slate-700/50 flex justify-between items-center">
+                    <div className="flex gap-2 flex-wrap">
+                      {item.environnement.slice(0, 2).map((tag, i) => (
+                        <span key={i} className="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-400">{tag}</span>
+                      ))}
+                    </div>
+                    <span className="text-xs uppercase tracking-wider font-bold text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity">Voir &rarr;</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+
+      case 'veille':
+        return (
+          <div className="animate-fade-in max-w-4xl mx-auto">
+            <div className="mb-6 flex items-center gap-3">
+              <div className="p-2 bg-blue-500/20 rounded-lg text-blue-400"><EyeIcon /></div>
+              <h2 className="text-3xl font-bold text-white">Veille Technologique</h2>
+            </div>
+
+            {/* Thème & PDF */}
+            <div className="glass-panel p-6 rounded-xl mb-8">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                <div>
+                  <span className="text-xs font-mono text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded-full">Thème principal</span>
+                  <h3 className="text-2xl font-bold text-white mt-2">L'IA Générative : nouvelle arme des cyberattaquants</h3>
+                  <p className="text-slate-400 mt-1">Analyse de l'impact de l'IA (LLM, Deepfakes) sur la cybersécurité et l'ingénierie sociale</p>
+                </div>
+              </div>
+              <a href="Veille_Techno.pdf" target="_blank" className="flex items-center justify-center gap-3 w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-all transform hover:scale-[1.01] shadow-lg shadow-blue-500/20">
+                <FileIcon />
+                Lire le Dossier de Veille Complet (PDF)
+              </a>
+            </div>
+
+            {/* Statistiques rapides */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+              {[
+                { val: "4", label: "Fiches de veille" },
+                { val: "4 mois", label: "Période couverte" },
+                { val: "3", label: "Types de veille" },
+                { val: "8+", label: "Sources consultées" }
+              ].map((s, i) => (
+                <div key={i} className="glass-panel p-4 rounded-xl text-center">
+                  <div className="text-2xl font-bold text-blue-400">{s.val}</div>
+                  <div className="text-xs text-slate-400 mt-1">{s.label}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Journal de veille — fiches */}
+            <h3 className="text-lg font-bold text-white mb-4">Journal de veille</h3>
+            <div className="space-y-5">
+              {veilleFiches.map((fiche) => (
+                <div key={fiche.id} className="glass-panel p-6 rounded-xl border border-slate-700/50 hover:border-slate-600 transition-all">
+                  <div className="flex flex-wrap items-center gap-3 mb-3">
+                    <span className={`text-xs font-mono font-bold px-2 py-1 rounded-full border ${fiche.typeColor}`}>{fiche.type}</span>
+                    <span className="text-slate-500 text-xs">{fiche.date}</span>
+                    <span className="ml-auto text-xs text-slate-500">Criticité : <span className={`font-bold ${fiche.criticiteColor}`}>{fiche.criticite}</span></span>
+                  </div>
+                  <h4 className="text-lg font-bold text-white mb-2">{fiche.titre}</h4>
+                  <p className="text-slate-400 text-sm mb-4 leading-relaxed">{fiche.resume}</p>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                    <div className="bg-slate-800/40 p-3 rounded-lg">
+                      <div className="text-slate-500 mb-1 uppercase tracking-wider font-bold">Source</div>
+                      <div className="text-slate-300">{fiche.source}</div>
+                    </div>
+                    <div className="bg-slate-800/40 p-3 rounded-lg">
+                      <div className="text-slate-500 mb-1 uppercase tracking-wider font-bold">Impact</div>
+                      <div className="text-slate-300">{fiche.impact}</div>
+                    </div>
+                    <div className="bg-slate-800/40 p-3 rounded-lg">
+                      <div className="text-slate-500 mb-1 uppercase tracking-wider font-bold">Lien formation</div>
+                      <div className="text-slate-300">{fiche.lienFormation}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Sources utilisées */}
+            <div className="mt-8 glass-panel p-6 rounded-xl">
+              <h3 className="text-white font-bold mb-4">📡 Sources consultées régulièrement</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                {[
+                  { name: "ANSSI / CERT-FR", url: "https://cert.ssi.gouv.fr", tag: "Officiel" },
+                  { name: "The Hacker News", url: "https://thehackernews.com", tag: "Sécurité" },
+                  { name: "BleepingComputer", url: "https://bleepingcomputer.com", tag: "Sécurité" },
+                  { name: "Krebs on Security", url: "https://krebsonsecurity.com", tag: "Sécurité" },
+                  { name: "LeMagIT", url: "https://lemagit.fr", tag: "Tech FR" },
+                  { name: "CVE MITRE", url: "https://cve.org", tag: "Vulnérabilités" },
+                ].map((src, i) => (
+                  <a key={i} href={src.url} target="_blank" className="flex items-center justify-between bg-slate-800/40 hover:bg-slate-700/40 transition-colors p-3 rounded-lg group">
+                    <span className="text-sm text-slate-300 group-hover:text-white transition-colors">{src.name}</span>
+                    <span className="text-[10px] text-slate-500 bg-slate-700 px-2 py-0.5 rounded-full">{src.tag}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+    }
+  };
+
+  return (
+    <div className="min-h-screen pb-20">
+      <nav className="sticky top-0 z-50 bg-slate-900/90 backdrop-blur border-b border-slate-800 mb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="font-bold text-xl tracking-tighter text-white">PORTFOLIO</div>
+            {/* Nav desktop */}
+            <div className="hidden md:flex space-x-8">
+              <button onClick={() => setPage('accueil')} className={`nav-item px-1 py-4 text-sm font-medium transition-colors ${page === 'accueil' ? 'active' : 'text-slate-400 hover:text-white'}`}>Accueil</button>
+              <button onClick={() => setPage('e5')} className={`nav-item px-1 py-4 text-sm font-medium transition-colors ${page === 'e5' ? 'active' : 'text-slate-400 hover:text-white'}`}>E5 (Infra)</button>
+              <button onClick={() => setPage('e6')} className={`nav-item px-1 py-4 text-sm font-medium transition-colors ${page === 'e6' ? 'active' : 'text-slate-400 hover:text-white'}`}>E6 (Projets)</button>
+              <button onClick={() => setPage('veille')} className={`nav-item px-1 py-4 text-sm font-medium transition-colors ${page === 'veille' ? 'active' : 'text-slate-400 hover:text-white'}`}>Veille Tech</button>
+            </div>
+            {/* Nav mobile — CORRIGÉE avec Veille */}
+            <div className="md:hidden flex gap-2">
+              <button onClick={() => setPage('accueil')} className={`text-xs p-2 rounded transition-colors ${page === 'accueil' ? 'bg-sisr-accent text-slate-900 font-bold' : 'bg-slate-800 text-slate-300'}`}>Home</button>
+              <button onClick={() => setPage('e5')} className={`text-xs p-2 rounded transition-colors ${page === 'e5' ? 'bg-sisr-accent text-slate-900 font-bold' : 'bg-slate-800 text-slate-300'}`}>E5</button>
+              <button onClick={() => setPage('e6')} className={`text-xs p-2 rounded transition-colors ${page === 'e6' ? 'bg-sisr-accent text-slate-900 font-bold' : 'bg-slate-800 text-slate-300'}`}>E6</button>
+              <button onClick={() => setPage('veille')} className={`text-xs p-2 rounded transition-colors ${page === 'veille' ? 'bg-blue-500 text-white font-bold' : 'bg-slate-800 text-slate-300'}`}>Veille</button>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {renderContent()}
+      </main>
+      <Modal isOpen={!!selectedProject} onClose={() => setSelectedProject(null)} data={selectedProject} />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
 </body>
 </html>
