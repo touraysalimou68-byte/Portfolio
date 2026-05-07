@@ -3,511 +3,605 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio - Salimou Touray</title>
-<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        sisr: {
-          dark: '#0f172a',
-          card: '#1e293b',
-          accent: '#10b981',
-          text: '#e2e8f0'
-        }
-      },
-      animation: {
-        'fade-in': 'fadeIn 0.5s ease-out',
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0', transform: 'translateY(10px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        }
-      }
-    }
-  }
-}
-</script>
+<title>Salimou Touray — BTS SIO SISR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700;900&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-body { background-color: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-.glass-panel {
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+:root {
+  --bg:        #07060e;
+  --surface:   #0f0e1a;
+  --card:      #131222;
+  --border:    rgba(245,158,11,0.12);
+  --border2:   rgba(6,182,212,0.12);
+  --amber:     #f59e0b;
+  --amber2:    #fbbf24;
+  --cyan:      #22d3ee;
+  --cyan2:     #67e8f9;
+  --text:      #f1f0ff;
+  --muted:     #8b87a8;
+  --faint:     #3d3958;
+  --font-head: 'Exo 2', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --r:         12px;
+  --r2:        20px;
 }
-.nav-item.active {
-  color: #10b981;
-  border-bottom: 2px solid #10b981;
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+::selection { background: rgba(245,158,11,0.3); color: #fff; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--faint); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--amber); }
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: linear-gradient(rgba(245,158,11,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(245,158,11,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none; z-index: 0;
 }
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #0f172a; }
-::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #475569; }
+body::after {
+  content: ''; position: fixed; top: -40%; left: -20%; width: 80%; height: 80%;
+  background: radial-gradient(ellipse, rgba(245,158,11,0.06) 0%, transparent 65%);
+  pointer-events: none; z-index: 0; animation: drift 18s ease-in-out infinite alternate;
+}
+@keyframes drift { from{transform:translate(0,0)} to{transform:translate(8%,5%)} }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5vw; height: 64px;
+  background: rgba(7,6,14,0.88); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-family: var(--font-head); font-weight: 900; font-size: 1.1rem; letter-spacing: 0.05em; color: var(--amber); }
+.nav-logo span { color: var(--text); }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--muted); transition: color 0.2s; padding-bottom: 2px; border-bottom: 1px solid transparent; text-transform: uppercase; }
+.nav-links a:hover, .nav-links a.active { color: var(--amber); border-bottom-color: var(--amber); }
+.nav-cta { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--bg); background: var(--amber); padding: 7px 18px; border-radius: 6px; font-weight: 700; transition: all 0.2s; }
+.nav-cta:hover { background: var(--amber2); transform: translateY(-1px); }
+.nav-hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+.nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--amber); border-radius: 2px; }
+
+/* HERO */
+#home { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 120px 5vw 80px; z-index: 1; }
+.hero-inner { display: grid; grid-template-columns: 1fr 340px; gap: 4rem; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; }
+.hero-tag { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.15em; color: var(--amber); background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); padding: 6px 14px; border-radius: 100px; margin-bottom: 1.5rem; text-transform: uppercase; }
+.hero-tag::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--amber); animation: pulse-dot 2s ease infinite; }
+@keyframes pulse-dot { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(245,158,11,0.5)} 50%{opacity:.7;box-shadow:0 0 0 6px rgba(245,158,11,0)} }
+.hero-name { font-family: var(--font-head); font-weight: 900; font-size: clamp(2.8rem,6vw,5rem); line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
+.hero-name .line1 { color: var(--text); }
+.hero-name .line2 { background: linear-gradient(90deg, var(--amber), var(--amber2), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-typed { font-family: var(--font-mono); font-size: 1rem; color: var(--cyan); min-height: 1.6rem; margin-bottom: 1.5rem; }
+.hero-typed .cursor { display: inline-block; width: 2px; height: 1.1em; background: var(--cyan); margin-left: 2px; vertical-align: text-bottom; animation: blink 1s step-end infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+.hero-desc { color: var(--muted); font-size: 1rem; max-width: 520px; margin-bottom: 2rem; line-height: 1.8; }
+.hero-desc strong { color: var(--text); }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 2.5rem; }
+.chip { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: rgba(255,255,255,0.03); border: 1px solid var(--faint); padding: 6px 12px; border-radius: 6px; }
+.chip .dot { width: 6px; height: 6px; border-radius: 50%; }
+.chip.amber .dot { background: var(--amber); box-shadow: 0 0 6px var(--amber); }
+.chip.cyan  .dot { background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
+.chip.green .dot { background: #4ade80; box-shadow: 0 0 6px #4ade80; }
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-primary { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; color: var(--bg); background: var(--amber); padding: 12px 28px; border-radius: 8px; border: none; cursor: pointer; transition: all 0.2s; text-transform: uppercase; display: inline-block; }
+.btn-primary:hover { background: var(--amber2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,158,11,0.3); }
+.btn-ghost { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; color: var(--cyan); background: transparent; padding: 12px 28px; border-radius: 8px; border: 1px solid rgba(34,211,238,0.3); cursor: pointer; transition: all 0.2s; text-transform: uppercase; display: inline-block; }
+.btn-ghost:hover { background: rgba(34,211,238,0.08); border-color: var(--cyan); transform: translateY(-2px); }
+
+.hero-photo-wrap { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+.hero-photo-ring { position: relative; width: 260px; height: 260px; flex-shrink: 0; }
+.hero-photo-ring::before { content: ''; position: absolute; inset: -3px; border-radius: 50%; background: conic-gradient(var(--amber), var(--cyan), var(--amber)); animation: spin 6s linear infinite; }
+@keyframes spin { to{transform:rotate(360deg)} }
+.hero-photo-ring::after { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--bg); }
+.hero-photo-inner { position: absolute; inset: 8px; border-radius: 50%; background: linear-gradient(135deg, var(--surface), var(--card)); display: flex; align-items: center; justify-content: center; z-index: 1; font-family: var(--font-head); font-size: 5rem; font-weight: 900; color: var(--amber); letter-spacing: -0.05em; }
+.hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+.hero-stat { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--r); padding: 12px 14px; text-align: center; }
+.hero-stat .val { font-family: var(--font-head); font-weight: 700; font-size: 1.4rem; color: var(--amber); line-height: 1; }
+.hero-stat .lbl { font-family: var(--font-mono); font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; }
+
+/* SECTIONS */
+section { position: relative; z-index: 1; }
+.section-wrap { max-width: 1200px; margin: 0 auto; padding: 100px 5vw; }
+.section-label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 10px; }
+.section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--amber); opacity: 0.4; }
+.section-title { font-family: var(--font-head); font-weight: 900; font-size: clamp(2rem,4vw,3rem); letter-spacing: -0.02em; margin-bottom: 3rem; line-height: 1.1; }
+.section-title em { font-style: normal; background: linear-gradient(90deg, var(--amber), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+hr.sep { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* ABOUT */
+#about { background: var(--surface); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.about-text p { color: var(--muted); margin-bottom: 1rem; line-height: 1.9; }
+.about-text p strong { color: var(--text); }
+.about-info { display: flex; flex-direction: column; gap: 12px; }
+.info-card { display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--r); padding: 14px 18px; transition: all 0.2s; }
+.info-card:hover { border-color: rgba(245,158,11,0.3); transform: translateX(4px); }
+.info-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.info-label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+.info-val { font-size: 0.92rem; color: var(--text); font-weight: 500; }
+.info-val a:hover { color: var(--amber); }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 2rem; }
+.skill-chip { display: flex; align-items: center; justify-content: space-between; gap: 8px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; transition: all 0.2s; }
+.skill-chip:hover { border-color: var(--border2); color: var(--cyan); }
+.skill-level { display: flex; gap: 3px; }
+.skill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--faint); }
+.skill-dot.on { background: var(--amber); box-shadow: 0 0 4px rgba(245,158,11,0.5); }
+
+/* E5 CARDS */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 20px; }
+.proj-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r2); padding: 24px; cursor: pointer; transition: all 0.25s; display: flex; flex-direction: column; gap: 12px; position: relative; overflow: hidden; }
+.proj-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--amber), transparent); opacity: 0; transition: opacity 0.3s; }
+.proj-card:hover { border-color: rgba(245,158,11,0.25); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
+.proj-card:hover::before { opacity: 1; }
+.proj-num { font-family: var(--font-mono); font-size: 0.65rem; color: var(--amber); letter-spacing: 0.15em; text-transform: uppercase; }
+.proj-title { font-family: var(--font-head); font-weight: 700; font-size: 1rem; line-height: 1.35; color: var(--text); }
+.proj-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.7; flex-grow: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.proj-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+.tag { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: rgba(255,255,255,0.03); border: 1px solid var(--faint); padding: 3px 9px; border-radius: 4px; }
+.proj-footer { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px; }
+.proj-arrow { font-size: 0.75rem; color: var(--amber); opacity: 0; transition: all 0.2s; font-family: var(--font-mono); }
+.proj-card:hover .proj-arrow { opacity: 1; transform: translateX(3px); }
+
+/* E6 */
+#e6 { background: var(--surface); }
+.e6-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.e6-card { background: var(--card); border: 1px solid rgba(34,211,238,0.15); border-radius: var(--r2); padding: 32px; position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 0; }
+.e6-card::after { content: 'E6'; position: absolute; top: 20px; right: 20px; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--cyan); background: rgba(34,211,238,0.08); border: 1px solid rgba(34,211,238,0.2); padding: 3px 10px; border-radius: 4px; }
+.e6-num { font-family: var(--font-mono); font-size: 0.65rem; color: var(--cyan); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+.e6-title { font-family: var(--font-head); font-weight: 700; font-size: 1.2rem; line-height: 1.3; color: var(--text); margin-bottom: 8px; padding-right: 48px; }
+.e6-meta { font-family: var(--font-mono); font-size: 0.68rem; color: var(--faint); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+.e6-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.75; margin-bottom: 20px; }
+.e6-objectives { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; flex-grow: 1; }
+.e6-objectives li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.875rem; color: var(--muted); }
+.e6-objectives li::before { content: '▸'; color: var(--cyan); flex-shrink: 0; }
+.e6-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 11px 20px; border-radius: 8px; background: rgba(34,211,238,0.06); border: 1px solid rgba(34,211,238,0.2); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cyan); transition: all 0.2s; margin-top: auto; }
+.e6-btn:hover { background: rgba(34,211,238,0.12); border-color: var(--cyan); transform: translateY(-1px); }
+
+/* VEILLE */
+#veille { background: var(--bg); }
+.veille-hero { background: var(--card); border: 1px solid var(--border); border-radius: var(--r2); padding: 32px; display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-bottom: 3rem; flex-wrap: wrap; }
+.veille-badge { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); padding: 4px 12px; border-radius: 100px; margin-bottom: 12px; display: inline-block; }
+.veille-title { font-family: var(--font-head); font-weight: 700; font-size: 1.4rem; margin-bottom: 8px; }
+.veille-sub { font-size: 0.9rem; color: var(--muted); }
+.veille-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; min-width: 300px; }
+.v-stat { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--r); padding: 14px; text-align: center; }
+.v-stat .val { font-family: var(--font-head); font-weight: 700; font-size: 1.5rem; color: var(--amber); }
+.v-stat .lbl { font-family: var(--font-mono); font-size: 0.58rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; }
+.veille-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 24px; border-radius: 8px; background: var(--amber); color: var(--bg); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; transition: all 0.2s; white-space: nowrap; }
+.veille-btn:hover { background: var(--amber2); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(245,158,11,0.3); }
+.fiches-list { display: flex; flex-direction: column; gap: 16px; }
+.fiche { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--amber); border-radius: var(--r2); overflow: hidden; }
+.fiche-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; cursor: pointer; gap: 1rem; flex-wrap: wrap; }
+.fiche-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.fiche-num { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bg); background: var(--amber); padding: 3px 10px; border-radius: 4px; font-weight: 700; }
+.fiche-date { font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); }
+.fiche-type { font-family: var(--font-mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--cyan); background: rgba(34,211,238,0.06); border: 1px solid rgba(34,211,238,0.15); padding: 3px 9px; border-radius: 4px; }
+.fiche-crit { font-family: var(--font-mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 9px; border-radius: 4px; }
+.crit-high { color: #f87171; background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.2); }
+.crit-critical { color: #fb923c; background: rgba(251,146,60,0.08); border: 1px solid rgba(251,146,60,0.2); }
+.crit-med { color: #60a5fa; background: rgba(96,165,250,0.08); border: 1px solid rgba(96,165,250,0.2); }
+.fiche-title { font-family: var(--font-head); font-weight: 700; font-size: 0.95rem; flex: 1; min-width: 200px; }
+.fiche-toggle { color: var(--amber); font-size: 1.4rem; transition: transform 0.3s; flex-shrink: 0; line-height: 1; }
+.fiche.open .fiche-toggle { transform: rotate(45deg); }
+.fiche-body { display: none; padding: 0 24px 24px; border-top: 1px solid var(--border); }
+.fiche.open .fiche-body { display: block; padding-top: 20px; }
+.fiche-resume { font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 18px; }
+.fiche-details { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.fiche-detail { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--r); padding: 12px 14px; }
+.fiche-detail .det-label { font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--amber); margin-bottom: 4px; }
+.fiche-detail .det-val { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+.sources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 1rem; }
+.source-card { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--r); padding: 12px 16px; transition: all 0.2s; }
+.source-card:hover { border-color: rgba(34,211,238,0.25); }
+.source-name { font-size: 0.875rem; color: var(--text); font-weight: 500; }
+.source-tag { font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; color: var(--muted); background: var(--faint); padding: 2px 8px; border-radius: 4px; opacity: 0.6; }
+
+/* SYNTHESE */
+#synthese { background: var(--surface); }
+.synthese-table-wrap { background: var(--card); border: 1px solid var(--border); border-radius: var(--r2); overflow: hidden; overflow-x: auto; }
+.synthese-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; min-width: 700px; }
+.synthese-table th { font-family: var(--font-mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--amber); background: rgba(245,158,11,0.05); padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.synthese-table td { padding: 13px 18px; color: var(--muted); border-bottom: 1px solid rgba(255,255,255,0.03); vertical-align: middle; }
+.synthese-table tr:last-child td { border-bottom: none; }
+.synthese-table tr:hover td { background: rgba(255,255,255,0.01); color: var(--text); }
+.td-proj { font-weight: 600; color: var(--text) !important; }
+.badge-ok { display: inline-block; font-family: var(--font-mono); font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.08em; color: #4ade80; background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.2); padding: 3px 8px; border-radius: 4px; }
+
+/* CONTACT */
+#contact { background: var(--bg); }
+.contact-inner { text-align: center; max-width: 600px; margin: 0 auto; }
+.contact-inner .section-label { justify-content: center; }
+.contact-inner .section-label::after { display: none; }
+.contact-desc { color: var(--muted); margin-bottom: 3rem; font-size: 1rem; line-height: 1.8; }
+.contact-links { display: flex; flex-direction: column; gap: 14px; max-width: 420px; margin: 0 auto; }
+.contact-link { display: flex; align-items: center; gap: 14px; background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 16px 20px; transition: all 0.2s; text-align: left; }
+.contact-link:hover { border-color: rgba(245,158,11,0.3); transform: translateX(4px); }
+.cl-icon { width: 44px; height: 44px; border-radius: 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; transition: all 0.2s; }
+.contact-link:hover .cl-icon { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3); }
+.cl-info .lbl { font-family: var(--font-mono); font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+.cl-info .val { font-size: 0.95rem; color: var(--text); font-weight: 500; }
+
+/* FOOTER */
+footer { position: relative; z-index: 1; background: var(--surface); border-top: 1px solid var(--border); padding: 32px 5vw; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-logo { font-family: var(--font-head); font-weight: 900; font-size: 1rem; color: var(--amber); }
+.footer-copy { font-family: var(--font-mono); font-size: 0.68rem; color: var(--faint); }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.2s; }
+.footer-links a:hover { color: var(--amber); }
+
+/* MODAL */
+.modal-overlay { position: fixed; inset: 0; background: rgba(7,6,14,0.92); backdrop-filter: blur(12px); z-index: 999; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal { background: var(--card); border: 1px solid rgba(245,158,11,0.2); border-radius: var(--r2); width: 100%; max-width: 680px; max-height: 90vh; overflow-y: auto; transform: translateY(20px); transition: transform 0.3s; }
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-header { display: flex; align-items: center; justify-content: space-between; padding: 24px 28px 20px; border-bottom: 1px solid var(--border); gap: 1rem; }
+.modal-badge { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bg); background: var(--amber); padding: 4px 12px; border-radius: 4px; font-weight: 700; }
+.modal-close { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--muted); cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; }
+.modal-close:hover { background: rgba(248,113,113,0.1); border-color: rgba(248,113,113,0.3); color: #f87171; }
+.modal-body { padding: 28px; }
+.modal-title { font-family: var(--font-head); font-weight: 700; font-size: 1.4rem; margin-bottom: 6px; }
+.modal-date { font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+.modal-desc { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 24px; border-left: 3px solid var(--border); padding-left: 16px; }
+.modal-pdf-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 14px 24px; border-radius: 10px; background: var(--amber); color: var(--bg); font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.2s; margin-bottom: 24px; }
+.modal-pdf-btn:hover { background: var(--amber2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,158,11,0.3); }
+.modal-section-title { font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--amber); margin-bottom: 12px; }
+.modal-objectives { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+.modal-obj { display: flex; align-items: flex-start; gap: 10px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--r); padding: 12px; font-size: 0.84rem; color: var(--muted); line-height: 1.5; }
+.modal-obj::before { content: '▸'; color: var(--amber); flex-shrink: 0; }
+.modal-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* FADE UP */
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-photo-wrap { flex-direction: row; align-items: center; gap: 2rem; }
+  .hero-photo-ring { width: 140px; height: 140px; }
+  .hero-photo-inner { font-size: 2.5rem; }
+  .hero-stats { grid-template-columns: repeat(4,1fr); }
+  .about-grid { grid-template-columns: 1fr; }
+  .e6-grid { grid-template-columns: 1fr; }
+  .fiche-details { grid-template-columns: 1fr; }
+  .modal-objectives { grid-template-columns: 1fr; }
+  .veille-stats { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 680px) {
+  .nav-links, .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-links.open { display: flex; position: fixed; top: 64px; left: 0; right: 0; background: rgba(7,6,14,0.98); flex-direction: column; padding: 20px 5vw; border-bottom: 1px solid var(--border); gap: 1.2rem; backdrop-filter: blur(20px); z-index: 99; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: repeat(2,1fr); }
+  .hero-photo-wrap { flex-direction: column; }
+  .veille-hero { flex-direction: column; }
+  .veille-stats { grid-template-columns: repeat(2,1fr); }
+}
 </style>
 </head>
 <body>
-<div id="root"></div>
-<script type="text/babel">
-const { useState } = React;
 
-const ServerIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>;
-const ShieldIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>;
-const EyeIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>;
-const UserIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>;
-const MailIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>;
-const LinkedinIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>;
-const XIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
-const CheckIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
-const FileIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>;
+<nav id="navbar">
+  <div class="nav-logo">ST<span>.</span></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Accueil</a></li>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#e5">E5</a></li>
+    <li><a href="#e6">E6</a></li>
+    <li><a href="#veille">Veille</a></li>
+    <li><a href="#synthese">Synthèse</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:TouraySalimou68@gmail.com" class="nav-cta">Contact</a>
+  <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
 
-const Modal = ({ isOpen, onClose, data }) => {
-  if (!isOpen || !data) return null;
-  React.useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => document.body.style.overflow = 'unset';
-  }, []);
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose}></div>
-      <div className="bg-slate-900 border border-slate-700 w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl relative z-10 shadow-2xl animate-fade-in">
-        <button onClick={onClose} className="absolute top-4 right-4 p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition-colors">
-          <XIcon />
-        </button>
-        <div className="p-8">
-          <div className="flex items-center gap-3 mb-6">
-            <span className={`px-3 py-1 rounded-full text-xs font-mono font-bold border ${data.type === 'E6' ? 'bg-purple-500/20 text-purple-400 border-purple-500/30' : 'bg-sisr-accent/20 text-sisr-accent border-sisr-accent/30'}`}>
-              {data.type === 'E6' ? 'PROJET E6' : 'PROJET E5'}
-            </span>
-            <span className="text-slate-500 text-sm">{data.date || "Projet GTECH"}</span>
-          </div>
-          <h2 className="text-3xl font-bold text-white mb-4">{data.titre}</h2>
-          <p className="text-lg text-slate-300 mb-8 border-l-4 border-slate-600 pl-4 italic">{data.desc}</p>
-          <div className="space-y-6">
-            {data.pdfUrl && (
-              <div className="mb-6">
-                <a href={data.pdfUrl} target="_blank" className={`flex items-center justify-center gap-3 w-full font-bold py-4 rounded-xl transition-all transform hover:scale-[1.02] shadow-lg ${data.type === 'E6' ? 'bg-purple-600 hover:bg-purple-500 shadow-purple-500/20' : 'bg-sisr-accent hover:bg-emerald-400 text-slate-900 shadow-emerald-500/20'} text-white`}>
-                  <FileIcon />
-                  Voir le Dossier Complet (PDF)
-                </a>
-                <p className="text-center text-slate-500 text-xs mt-2">Cliquez pour ouvrir le document PDF associé</p>
-              </div>
-            )}
-            {data.objectifs && (
-              <div>
-                <h3 className="text-white font-bold mb-3">🎯 Objectifs & Réalisations</h3>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {data.objectifs.map((obj, i) => (
-                    <li key={i} className="flex items-start gap-2 text-slate-400 text-sm bg-slate-800/30 p-3 rounded-lg">
-                      <span className={data.type === 'E6' ? 'text-purple-400' : 'text-sisr-accent'}><CheckIcon /></span>
-                      {obj}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {data.environnement && (
-              <div>
-                <h3 className="text-white font-bold mb-3">💻 Environnement Technique</h3>
-                <div className="flex flex-wrap gap-2">
-                  {data.environnement.map((env, i) => (
-                    <span key={i} className="px-3 py-1 bg-slate-800 border border-slate-600 rounded-full text-xs text-slate-300">{env}</span>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+<!-- HERO -->
+<section id="home">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-tag">BTS SIO — Option SISR — Session 2026</div>
+      <h1 class="hero-name">
+        <div class="line1">Salimou</div>
+        <div class="line2">Touray.</div>
+      </h1>
+      <div class="hero-typed"><span id="typed-text"></span><span class="cursor"></span></div>
+      <p class="hero-desc">Étudiant en 2ème année de <strong>BTS SIO option SISR</strong> au CFA INSTA (Paris). Passionné par l'administration des systèmes, la sécurisation des infrastructures et la cybersécurité. Candidat session <strong>2026</strong>.</p>
+      <div class="hero-chips">
+        <div class="chip amber"><span class="dot"></span>Debian 12 / Win Server 2022</div>
+        <div class="chip cyan"><span class="dot"></span>Cisco IOS / pfSense</div>
+        <div class="chip green"><span class="dot"></span>Candidat Session 2026</div>
+      </div>
+      <div class="hero-btns">
+        <a href="#e5" class="btn-primary">Voir mes projets</a>
+        <a href="#contact" class="btn-ghost">Me contacter</a>
       </div>
     </div>
-  );
-};
-
-function App() {
-  const [page, setPage] = useState('accueil');
-  const [selectedProject, setSelectedProject] = useState(null);
-
-  const e5List = [
-    {
-      id: 1, type: 'E5',
-      titre: "Segmentation VLAN & Routage Inter-VLAN",
-      desc: "Segmentation d'un réseau d'entreprise en 4 VLANs (Administration, RH, Finance, IT) avec routage inter-VLAN via la méthode Router-on-a-Stick et attribution automatique des adresses IP par DHCP.",
-      date: "Projet GTECH", pdfUrl: "INTER-VLAN S.pdf",
-      objectifs: ["Création & affectation des VLANs (10/20/30/40)", "Routage inter-VLAN (Router-on-a-Stick / dot1Q)", "Configuration DHCP par VLAN sur le routeur", "Sécurisation des ports en mode Access & Trunk"],
-      environnement: ["Cisco Routeur 2911", "Cisco Switch 2960", "Packet Tracer", "IOS Cisco"]
-    },
-    {
-      id: 2, type: 'E5',
-      titre: "Filtrage réseau par Listes de Contrôle d'Accès (ACL)",
-      desc: "Déploiement d'ACL étendues sur un routeur Cisco pour autoriser uniquement le trafic HTTP vers un serveur web et bloquer tout accès vers un serveur hébergeant des données sensibles.",
-      date: "Projet GTECH", pdfUrl: "ACL S.pdf",
-      objectifs: ["Création d'ACL étendues (liste 100)", "Autorisation trafic HTTP (port 80) vers Serveur 1", "Blocage total des accès vers Serveur 2", "Validation par tests Ping, Telnet & navigateur"],
-      environnement: ["Cisco Routeur 2901", "Cisco Switch 2960", "Packet Tracer", "IOS Cisco"]
-    },
-    {
-      id: 3, type: 'E5',
-      titre: "Infrastructure réseau sécurisée : pfSense & Proxmox",
-      desc: "Déploiement d'un réseau physique sécurisé pour une PME avec un pare-feu matériel pfSense assurant la segmentation WAN/LAN et un hyperviseur Proxmox VE pour l'hébergement de futures machines virtuelles.",
-      date: "Projet GTECH", pdfUrl: "PROXMOX PFSENSE S.pdf",
-      objectifs: ["Installation de pfSense (pare-feu / passerelle WAN→LAN)", "Installation et configuration de Proxmox VE (hyperviseur)", "Plan d'adressage IP statique (192.168.10.0/24)", "Tests de connectivité LAN, passerelle et sortie Internet"],
-      environnement: ["pfSense 2.7 (FreeBSD)", "Proxmox VE 9", "Switch Gigabit", "Réseau physique"]
-    },
-    {
-      id: 4, type: 'E5',
-      titre: "Contrôleur de Domaine Active Directory & Services DNS/DHCP",
-      desc: "Déploiement d'une infrastructure Active Directory complète sur Proxmox VE avec un pare-feu pfSense virtuel, un contrôleur de domaine Windows Server 2022 (AD DS), un serveur DNS et DHCP, et l'intégration d'un poste client Windows 10 au domaine.",
-      date: "Projet GTECH", pdfUrl: "ADDS S.pdf",
-      objectifs: ["Déploiement pfSense virtuel (segmentation WAN/LAN)", "Installation Windows Server 2022 & promotion contrôleur de domaine", "Configuration DNS interne (forêt labo.local) & DHCP", "Jonction d'un poste Windows 10 au domaine"],
-      environnement: ["Windows Server 2022", "Proxmox VE", "pfSense virtuel", "Windows 10"]
-    },
-    {
-      id: 5, type: 'E5',
-      titre: "Stratégies de Groupe (GPO) & Sécurisation des postes",
-      desc: "Mise en place de 4 GPO sur un contrôleur de domaine Active Directory pour automatiser le mappage de lecteurs réseau, imposer un fond d'écran d'entreprise et restreindre l'accès aux outils système sensibles.",
-      date: "Projet GTECH", pdfUrl: "GPO S.pdf",
-      objectifs: ["GPO 1 : Mappage automatique d'un lecteur réseau partagé", "GPO 2 : Fond d'écran d'entreprise imposé (G.TECH)", "GPO 3 : Blocage du Panneau de configuration", "GPO 4 : Désactivation de l'invite de commandes (CMD)"],
-      environnement: ["Windows Server 2022", "Active Directory", "GPMC", "Windows 10"]
-    },
-    {
-      id: 6, type: 'E5',
-      titre: "Administration distante SSH avec clés asymétriques (Linux)",
-      desc: "Sécurisation de l'administration à distance d'un serveur Debian 12 en remplaçant l'authentification par mot de passe par des clés RSA 4096 bits, avec durcissement SSH et configuration du pare-feu UFW.",
-      date: "Projet GTECH", pdfUrl: "SSH S.pdf",
-      objectifs: ["Création d'un utilisateur admin & groupe IT avec droits sudo", "Génération de clés RSA 4096 bits et transfert sur le serveur", "Durcissement SSH : port 2222, root interdit, mot de passe désactivé", "Configuration du pare-feu UFW et tests de connexion"],
-      environnement: ["Debian 12", "OpenSSH", "UFW", "PowerShell (client Windows)"]
-    },
-    {
-      id: 7, type: 'E5',
-      titre: "Haute disponibilité réseau avec HSRP (Redondance & Load Balancing)",
-      desc: "Mise en place d'une architecture de haute disponibilité avec deux routeurs Cisco et le protocole HSRP, garantissant la redondance de la passerelle et une répartition de charge actif/actif entre 2 VLANs.",
-      date: "Projet GTECH", pdfUrl: "HSRP S.pdf",
-      objectifs: ["Configuration HSRP en mode Active/Standby sur 2 groupes (VLAN 10 & 20)", "Load Balancing actif/actif : chaque routeur est chef d'un VLAN", "Test de bascule automatique (Failover) en cas de panne", "Segmentation Layer 2 avec VLANs dédiés par switch"],
-      environnement: ["Cisco Routeur 2911", "Cisco Switch 2960", "Packet Tracer", "HSRP"]
-    }
-  ];
-
-  // --- E6 CORRIGÉ avec les vrais projets ---
-  const e6List = [
-    {
-      id: 1, type: 'E6',
-      titre: "Système de Ticketing centralisé (GLPI) sous infrastructure sécurisée",
-      desc: "Déploiement d'un serveur GLPI sur une VM Debian 12, isolé derrière un pare-feu pfSense virtualisé sous ESXi. Mise en place de la pile LAMP, configuration du routage WAN/LAN et sécurisation de l'accès administrateur via MFA.",
-      date: "Mars 2026 — CFA INSTA",
-      pdfUrl: "GLPI_PFSENSE_S.pdf",
-      objectifs: [
-        "Déploiement du pare-feu pfSense (WAN 20.0.0.125 / LAN 192.168.55.0/24)",
-        "Installation Debian 12 en VM avec IP statique (192.168.55.54)",
-        "Installation pile LAMP (Apache, MariaDB, PHP) et déploiement GLPI",
-        "Sécurisation accès administrateur par MFA (authentification multifacteur)"
-      ],
-      environnement: ["ESXi (Hyperviseur)", "pfSense", "Debian 12", "GLPI / LAMP", "MariaDB", "Apache"]
-    },
-    {
-      id: 2, type: 'E6',
-      titre: "Infrastructure réseau segmentée avec accès WAN et service DHCP",
-      desc: "Restructuration complète du réseau local de Novalink : segmentation en VLANs, routage inter-VLAN (Router-on-a-Stick), distribution automatique des IP par DHCP et accès WAN via NAT sur routeur Cisco.",
-      date: "Mars 2026 — CFA INSTA",
-      pdfUrl: "Projet_E6_Reseau.pdf",
-      objectifs: [
-        "Création des VLAN 2 et VLAN 3 sur Cisco 2960 (port Trunk 802.1Q)",
-        "Routage inter-VLAN Router-on-a-Stick sur Cisco 1841",
-        "Configuration DHCP sur le routeur (2 pools distincts par VLAN)",
-        "Accès WAN via NAT et validation par tests Ping / IPConfig"
-      ],
-      environnement: ["Cisco 1841", "Cisco 2960", "Packet Tracer", "IOS Cisco", "NAT", "DHCP"]
-    }
-  ];
-
-  // --- FICHES DE VEILLE ---
-  const veilleFiches = [
-    {
-      id: 1,
-      date: "Janvier 2026",
-      titre: "L'IA Générative : nouvelle arme des cyberattaquants",
-      type: "Veille sécurité",
-      typeColor: "text-red-400 bg-red-500/10 border-red-500/30",
-      dotColor: "bg-red-400",
-      source: "The Hacker News — ANSSI",
-      sourceUrl: "https://thehackernews.com",
-      criticite: "Élevé",
-      criticiteColor: "text-red-400",
-      resume: "L'IA générative (ChatGPT, Gemini) est désormais exploitée par les attaquants pour industrialiser le phishing, générer des malwares polymorphes et contourner les filtres de détection basés sur des signatures statiques.",
-      impact: "Toutes les organisations exposées à des emails externes, en particulier les PME sans solution anti-phishing avancée.",
-      action: "Déployer des filtres anti-phishing basés sur l'IA, former les utilisateurs aux nouvelles formes d'ingénierie sociale.",
-      lienFormation: "Lien direct avec les cours de sécurité réseau et la gestion des politiques de filtrage (GPO, pare-feu pfSense)."
-    },
-    {
-      id: 2,
-      date: "Février 2026",
-      titre: "Deepfakes & usurpation d'identité en temps réel",
-      type: "Veille sécurité",
-      typeColor: "text-orange-400 bg-orange-500/10 border-orange-500/30",
-      dotColor: "bg-orange-400",
-      source: "BleepingComputer — Europol",
-      sourceUrl: "https://bleepingcomputer.com",
-      criticite: "Critique",
-      criticiteColor: "text-orange-400",
-      resume: "Le clonage vocal et vidéo en temps réel permet à des attaquants de se faire passer pour un dirigeant lors d'un appel (arnaque au président). Des outils accessibles au grand public permettent de générer une voix clonée en moins de 10 secondes d'audio source.",
-      impact: "Entreprises exposées aux fraudes financières par usurpation d'identité de dirigeants. Pertes estimées à plusieurs millions d'euros en France en 2025.",
-      action: "Mettre en place des codes de vérification verbaux internes, sensibiliser les équipes financières, implémenter le MFA sur tous les accès critiques.",
-      lienFormation: "Mis en pratique lors du déploiement de GLPI avec MFA obligatoire pour l'administrateur (réalisation E6)."
-    },
-    {
-      id: 3,
-      date: "Mars 2026",
-      titre: "NIS2 : nouvelles obligations de cybersécurité en France",
-      type: "Veille réglementaire",
-      typeColor: "text-blue-400 bg-blue-500/10 border-blue-500/30",
-      dotColor: "bg-blue-400",
-      source: "ANSSI — CNIL",
-      sourceUrl: "https://cert.ssi.gouv.fr",
-      criticite: "Moyen",
-      criticiteColor: "text-blue-400",
-      resume: "La directive européenne NIS2, transposée en France, étend les obligations de cybersécurité à plus de 10 000 entités (dont les ETI et PME des secteurs critiques). Elle impose une déclaration d'incident sous 24h et des audits réguliers.",
-      impact: "Les entreprises concernées doivent mettre en conformité leur SI, documenter leurs pratiques de sécurité et former leur personnel.",
-      action: "Suivre les bulletins de l'ANSSI, anticiper les audits de conformité, documenter les procédures de gestion d'incidents.",
-      lienFormation: "En lien avec les cours d'administration système et la mise en place de politiques de sécurité (GPO, pare-feu, SSH)."
-    },
-    {
-      id: 4,
-      date: "Avril 2026",
-      titre: "Phishing industrialisé par LLM : détection et contre-mesures",
-      type: "Veille technologique",
-      typeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30",
-      dotColor: "bg-emerald-400",
-      source: "Krebs on Security — SANS Institute",
-      sourceUrl: "https://krebsonsecurity.com",
-      criticite: "Élevé",
-      criticiteColor: "text-red-400",
-      resume: "Les LLM (grands modèles de langage) permettent de générer des campagnes de phishing parfaitement rédigées, contextualisées et personnalisées à grande échelle. Les outils de détection classiques basés sur les fautes d'orthographe deviennent obsolètes.",
-      impact: "Hausse de 60% des tentatives de phishing réussies en 2025 selon le rapport CERT-FR. Cible prioritaire : les identifiants d'accès aux SI d'entreprise.",
-      action: "Adopter des solutions de détection comportementale (EDR/XDR), mettre en place le SPF/DKIM/DMARC sur les domaines, sensibiliser les utilisateurs.",
-      lienFormation: "En lien avec la sécurisation des accès SSH (clés RSA, désactivation mot de passe) et la gestion des ACL réseau."
-    }
-  ];
-
-  const renderContent = () => {
-    switch(page) {
-      case 'accueil':
-        return (
-          <div className="animate-fade-in space-y-12">
-            <div className="text-center pt-10">
-              <span className="inline-block py-1 px-3 rounded-full bg-sisr-accent/20 text-sisr-accent text-sm font-mono mb-4 border border-sisr-accent/50">BTS SIO Option SISR</span>
-              <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">Salimou Touray</h1>
-              <p className="text-xl text-slate-400 max-w-2xl mx-auto italic">
-                "Passionné par l'administration système et la sécurisation des infrastructures numériques."
-              </p>
-            </div>
-            <div className="max-w-3xl mx-auto">
-              <div className="glass-panel p-8 rounded-2xl relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-sisr-accent/10 rounded-full blur-3xl group-hover:bg-sisr-accent/20 transition-all"></div>
-                <div className="flex flex-col md:flex-row items-center gap-8 relative z-10">
-                  <div className="w-24 h-24 bg-gradient-to-br from-slate-700 to-slate-900 rounded-full flex items-center justify-center border-2 border-sisr-accent shadow-lg shadow-sisr-accent/20">
-                    <UserIcon />
-                  </div>
-                  <div className="flex-1 text-center md:text-left space-y-3">
-                    <h2 className="text-2xl font-bold text-white">Mes Coordonnées</h2>
-                    <div className="space-y-4">
-                      <a href="mailto:TouraySalimou68@gmail.com" className="flex items-center justify-center md:justify-start gap-3 text-slate-300 hover:text-sisr-accent transition-all hover:bg-slate-800/50 p-2 rounded-lg -ml-2">
-                        <div className="p-2 bg-slate-800 rounded-md"><MailIcon /></div>
-                        <span className="font-medium">TouraySalimou68@gmail.com</span>
-                      </a>
-                      <a href="https://www.linkedin.com/in/salimou-touray-02ba06327/" target="_blank" className="flex items-center justify-center md:justify-start gap-3 text-slate-300 hover:text-blue-400 transition-all hover:bg-slate-800/50 p-2 rounded-lg -ml-2">
-                        <div className="p-2 bg-slate-800 rounded-md"><LinkedinIcon /></div>
-                        <span className="font-medium">Profil LinkedIn</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-
-      case 'e5':
-        return (
-          <div className="animate-fade-in">
-            <div className="mb-8 flex items-center gap-3">
-              <div className="p-2 bg-sisr-accent/20 rounded-lg text-sisr-accent"><ServerIcon /></div>
-              <h2 className="text-3xl font-bold text-white">Épreuve E5 <span className="text-lg font-normal text-slate-400 ml-2">(Infrastructure)</span></h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {e5List.map((item) => (
-                <div key={item.id} onClick={() => setSelectedProject(item)} className="glass-panel p-6 rounded-xl hover:border-sisr-accent/50 transition-all cursor-pointer group flex flex-col h-full">
-                  <div className="text-sisr-accent mb-3 font-mono text-sm font-bold">PROJET E5</div>
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-sisr-accent transition-colors">{item.titre}</h3>
-                  <p className="text-slate-400 text-sm mb-4 line-clamp-3 flex-grow">{item.desc}</p>
-                  <div className="mt-auto pt-4 border-t border-slate-700/50 flex justify-between items-center">
-                    <div className="flex gap-2">
-                      {item.environnement.slice(0, 2).map((tag, i) => (
-                        <span key={i} className="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-400">{tag}</span>
-                      ))}
-                    </div>
-                    <span className="text-xs uppercase tracking-wider font-bold text-sisr-accent opacity-0 group-hover:opacity-100 transition-opacity">Voir &rarr;</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-
-      case 'e6':
-        return (
-          <div className="animate-fade-in">
-            <div className="mb-8 flex items-center gap-3">
-              <div className="p-2 bg-purple-500/20 rounded-lg text-purple-400"><ShieldIcon /></div>
-              <h2 className="text-3xl font-bold text-white">Épreuve E6 <span className="text-lg font-normal text-slate-400 ml-2">(Projets professionnels)</span></h2>
-            </div>
-            <p className="text-slate-400 mb-8 max-w-2xl">Réalisations professionnelles effectuées au sein de l'entreprise <span className="text-white font-semibold">Novalink</span> dans le cadre du BTS SIO SISR — Session 2026.</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {e6List.map((item) => (
-                <div key={item.id} onClick={() => setSelectedProject(item)} className="glass-panel p-6 rounded-xl hover:border-purple-500/50 transition-all cursor-pointer group flex flex-col h-full">
-                  <div className="text-purple-400 mb-3 font-mono text-sm font-bold">PROJET E6 — Réalisation N°{item.id}</div>
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">{item.titre}</h3>
-                  <p className="text-slate-400 text-sm mb-4 line-clamp-3 flex-grow">{item.desc}</p>
-                  <div className="mt-auto pt-4 border-t border-slate-700/50 flex justify-between items-center">
-                    <div className="flex gap-2 flex-wrap">
-                      {item.environnement.slice(0, 2).map((tag, i) => (
-                        <span key={i} className="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-400">{tag}</span>
-                      ))}
-                    </div>
-                    <span className="text-xs uppercase tracking-wider font-bold text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity">Voir &rarr;</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-
-      case 'veille':
-        return (
-          <div className="animate-fade-in max-w-4xl mx-auto">
-            <div className="mb-6 flex items-center gap-3">
-              <div className="p-2 bg-blue-500/20 rounded-lg text-blue-400"><EyeIcon /></div>
-              <h2 className="text-3xl font-bold text-white">Veille Technologique</h2>
-            </div>
-
-            {/* Thème & PDF */}
-            <div className="glass-panel p-6 rounded-xl mb-8">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-                <div>
-                  <span className="text-xs font-mono text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-1 rounded-full">Thème principal</span>
-                  <h3 className="text-2xl font-bold text-white mt-2">L'IA Générative : nouvelle arme des cyberattaquants</h3>
-                  <p className="text-slate-400 mt-1">Analyse de l'impact de l'IA (LLM, Deepfakes) sur la cybersécurité et l'ingénierie sociale</p>
-                </div>
-              </div>
-              <a href="Veille_Techno.pdf" target="_blank" className="flex items-center justify-center gap-3 w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-all transform hover:scale-[1.01] shadow-lg shadow-blue-500/20">
-                <FileIcon />
-                Lire le Dossier de Veille Complet (PDF)
-              </a>
-            </div>
-
-            {/* Statistiques rapides */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-              {[
-                { val: "4", label: "Fiches de veille" },
-                { val: "4 mois", label: "Période couverte" },
-                { val: "3", label: "Types de veille" },
-                { val: "8+", label: "Sources consultées" }
-              ].map((s, i) => (
-                <div key={i} className="glass-panel p-4 rounded-xl text-center">
-                  <div className="text-2xl font-bold text-blue-400">{s.val}</div>
-                  <div className="text-xs text-slate-400 mt-1">{s.label}</div>
-                </div>
-              ))}
-            </div>
-
-            {/* Journal de veille — fiches */}
-            <h3 className="text-lg font-bold text-white mb-4">Journal de veille</h3>
-            <div className="space-y-5">
-              {veilleFiches.map((fiche) => (
-                <div key={fiche.id} className="glass-panel p-6 rounded-xl border border-slate-700/50 hover:border-slate-600 transition-all">
-                  <div className="flex flex-wrap items-center gap-3 mb-3">
-                    <span className={`text-xs font-mono font-bold px-2 py-1 rounded-full border ${fiche.typeColor}`}>{fiche.type}</span>
-                    <span className="text-slate-500 text-xs">{fiche.date}</span>
-                    <span className="ml-auto text-xs text-slate-500">Criticité : <span className={`font-bold ${fiche.criticiteColor}`}>{fiche.criticite}</span></span>
-                  </div>
-                  <h4 className="text-lg font-bold text-white mb-2">{fiche.titre}</h4>
-                  <p className="text-slate-400 text-sm mb-4 leading-relaxed">{fiche.resume}</p>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-                    <div className="bg-slate-800/40 p-3 rounded-lg">
-                      <div className="text-slate-500 mb-1 uppercase tracking-wider font-bold">Source</div>
-                      <div className="text-slate-300">{fiche.source}</div>
-                    </div>
-                    <div className="bg-slate-800/40 p-3 rounded-lg">
-                      <div className="text-slate-500 mb-1 uppercase tracking-wider font-bold">Impact</div>
-                      <div className="text-slate-300">{fiche.impact}</div>
-                    </div>
-                    <div className="bg-slate-800/40 p-3 rounded-lg">
-                      <div className="text-slate-500 mb-1 uppercase tracking-wider font-bold">Lien formation</div>
-                      <div className="text-slate-300">{fiche.lienFormation}</div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Sources utilisées */}
-            <div className="mt-8 glass-panel p-6 rounded-xl">
-              <h3 className="text-white font-bold mb-4">📡 Sources consultées régulièrement</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {[
-                  { name: "ANSSI / CERT-FR", url: "https://cert.ssi.gouv.fr", tag: "Officiel" },
-                  { name: "The Hacker News", url: "https://thehackernews.com", tag: "Sécurité" },
-                  { name: "BleepingComputer", url: "https://bleepingcomputer.com", tag: "Sécurité" },
-                  { name: "Krebs on Security", url: "https://krebsonsecurity.com", tag: "Sécurité" },
-                  { name: "LeMagIT", url: "https://lemagit.fr", tag: "Tech FR" },
-                  { name: "CVE MITRE", url: "https://cve.org", tag: "Vulnérabilités" },
-                ].map((src, i) => (
-                  <a key={i} href={src.url} target="_blank" className="flex items-center justify-between bg-slate-800/40 hover:bg-slate-700/40 transition-colors p-3 rounded-lg group">
-                    <span className="text-sm text-slate-300 group-hover:text-white transition-colors">{src.name}</span>
-                    <span className="text-[10px] text-slate-500 bg-slate-700 px-2 py-0.5 rounded-full">{src.tag}</span>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-        );
-    }
-  };
-
-  return (
-    <div className="min-h-screen pb-20">
-      <nav className="sticky top-0 z-50 bg-slate-900/90 backdrop-blur border-b border-slate-800 mb-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="font-bold text-xl tracking-tighter text-white">PORTFOLIO</div>
-            {/* Nav desktop */}
-            <div className="hidden md:flex space-x-8">
-              <button onClick={() => setPage('accueil')} className={`nav-item px-1 py-4 text-sm font-medium transition-colors ${page === 'accueil' ? 'active' : 'text-slate-400 hover:text-white'}`}>Accueil</button>
-              <button onClick={() => setPage('e5')} className={`nav-item px-1 py-4 text-sm font-medium transition-colors ${page === 'e5' ? 'active' : 'text-slate-400 hover:text-white'}`}>E5 (Infra)</button>
-              <button onClick={() => setPage('e6')} className={`nav-item px-1 py-4 text-sm font-medium transition-colors ${page === 'e6' ? 'active' : 'text-slate-400 hover:text-white'}`}>E6 (Projets)</button>
-              <button onClick={() => setPage('veille')} className={`nav-item px-1 py-4 text-sm font-medium transition-colors ${page === 'veille' ? 'active' : 'text-slate-400 hover:text-white'}`}>Veille Tech</button>
-            </div>
-            {/* Nav mobile — CORRIGÉE avec Veille */}
-            <div className="md:hidden flex gap-2">
-              <button onClick={() => setPage('accueil')} className={`text-xs p-2 rounded transition-colors ${page === 'accueil' ? 'bg-sisr-accent text-slate-900 font-bold' : 'bg-slate-800 text-slate-300'}`}>Home</button>
-              <button onClick={() => setPage('e5')} className={`text-xs p-2 rounded transition-colors ${page === 'e5' ? 'bg-sisr-accent text-slate-900 font-bold' : 'bg-slate-800 text-slate-300'}`}>E5</button>
-              <button onClick={() => setPage('e6')} className={`text-xs p-2 rounded transition-colors ${page === 'e6' ? 'bg-sisr-accent text-slate-900 font-bold' : 'bg-slate-800 text-slate-300'}`}>E6</button>
-              <button onClick={() => setPage('veille')} className={`text-xs p-2 rounded transition-colors ${page === 'veille' ? 'bg-blue-500 text-white font-bold' : 'bg-slate-800 text-slate-300'}`}>Veille</button>
-            </div>
-          </div>
-        </div>
-      </nav>
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {renderContent()}
-      </main>
-      <Modal isOpen={!!selectedProject} onClose={() => setSelectedProject(null)} data={selectedProject} />
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-ring">
+        <div class="hero-photo-inner">ST</div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="val">7</div><div class="lbl">Projets E5</div></div>
+        <div class="hero-stat"><div class="val">2</div><div class="lbl">Projets E6</div></div>
+        <div class="hero-stat"><div class="val">4</div><div class="lbl">Fiches veille</div></div>
+        <div class="hero-stat"><div class="val">2</div><div class="lbl">Ans formation</div></div>
+      </div>
     </div>
-  );
-}
+  </div>
+</section>
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+<hr class="sep">
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="section-label">00 — Qui suis-je</div>
+    <h2 class="section-title">À <em>propos</em></h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Actuellement étudiant en deuxième année de <strong>BTS SIO option SISR</strong> (Solutions d'Infrastructure, Systèmes et Réseaux) au <strong>CFA INSTA, Paris</strong>. Passionné par l'informatique, la sécurisation des réseaux et les nouvelles technologies.</p>
+        <p>Dans le cadre de l'entreprise <strong>Novalink</strong>, j'ai pu mettre en pratique mes compétences sur des projets concrets d'administration système et réseau, de virtualisation et de sécurisation des infrastructures.</p>
+        <p>Mon objectif : devenir <strong>administrateur systèmes et réseaux</strong>, avec une expertise en cybersécurité et virtualisation.</p>
+        <div class="skills-grid">
+          <div class="skill-chip">Cisco IOS <div class="skill-level"><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot"></div></div></div>
+          <div class="skill-chip">pfSense <div class="skill-level"><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot"></div></div></div>
+          <div class="skill-chip">Windows Server <div class="skill-level"><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot"></div></div></div>
+          <div class="skill-chip">Active Directory <div class="skill-level"><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot"></div><div class="skill-dot"></div></div></div>
+          <div class="skill-chip">Linux / Debian <div class="skill-level"><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot"></div></div></div>
+          <div class="skill-chip">Proxmox / ESXi <div class="skill-level"><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot"></div><div class="skill-dot"></div></div></div>
+          <div class="skill-chip">Packet Tracer <div class="skill-level"><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot on"></div></div></div>
+          <div class="skill-chip">SSH / OpenSSH <div class="skill-level"><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot on"></div><div class="skill-dot"></div></div></div>
+        </div>
+      </div>
+      <div class="about-info">
+        <div class="info-card"><div class="info-icon">🎓</div><div><div class="info-label">Diplôme</div><div class="info-val">BTS SIO – Option SISR (2024–2026)</div></div></div>
+        <div class="info-card"><div class="info-icon">📍</div><div><div class="info-label">École</div><div class="info-val">CFA INSTA — Paris (75)</div></div></div>
+        <div class="info-card"><div class="info-icon">🏢</div><div><div class="info-label">Entreprise</div><div class="info-val">Novalink</div></div></div>
+        <div class="info-card"><div class="info-icon">📧</div><div><div class="info-label">Email</div><div class="info-val"><a href="mailto:TouraySalimou68@gmail.com">TouraySalimou68@gmail.com</a></div></div></div>
+        <div class="info-card"><div class="info-icon">💼</div><div><div class="info-label">LinkedIn</div><div class="info-val"><a href="https://www.linkedin.com/in/salimou-touray-02ba06327/" target="_blank">Salimou Touray →</a></div></div></div>
+        <div class="info-card"><div class="info-icon">💻</div><div><div class="info-label">OS principal</div><div class="info-val">Debian 12 / Windows Server 2022</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- E5 -->
+<section id="e5">
+  <div class="section-wrap">
+    <div class="section-label">01 — Infrastructure</div>
+    <h2 class="section-title">Épreuve <em>E5</em></h2>
+    <div class="cards-grid" id="e5-grid"></div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- E6 -->
+<section id="e6">
+  <div class="section-wrap">
+    <div class="section-label">02 — Projets professionnels</div>
+    <h2 class="section-title">Épreuve <em>E6</em></h2>
+    <p style="color:var(--muted);margin-bottom:2.5rem;max-width:600px;font-size:0.95rem">Réalisations professionnelles effectuées au sein de l'entreprise <strong style="color:var(--text)">Novalink</strong> — Administration des systèmes et des réseaux — Session 2026.</p>
+    <div class="e6-grid" id="e6-grid"></div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- VEILLE -->
+<section id="veille">
+  <div class="section-wrap">
+    <div class="section-label">03 — Journal de veille</div>
+    <h2 class="section-title">Veille <em>Technologique</em></h2>
+    <div class="veille-hero">
+      <div class="veille-theme">
+        <div class="veille-badge">Thème principal</div>
+        <div class="veille-title">L'IA Générative au service des Cyberattaques</div>
+        <div class="veille-sub">Analyse de l'impact des LLM et Deepfakes sur la cybersécurité</div>
+      </div>
+      <div class="veille-stats">
+        <div class="v-stat"><div class="val">4</div><div class="lbl">Fiches</div></div>
+        <div class="v-stat"><div class="val">4</div><div class="lbl">Mois</div></div>
+        <div class="v-stat"><div class="val">3</div><div class="lbl">Types</div></div>
+        <div class="v-stat"><div class="val">7+</div><div class="lbl">Sources</div></div>
+      </div>
+      <a href="Veille_Techno.pdf" target="_blank" class="veille-btn">📄 Dossier PDF</a>
+    </div>
+    <div class="fiches-list" id="fiches-container"></div>
+    <p style="font-family:var(--font-mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--amber);margin-top:3rem;margin-bottom:1rem">Sources consultées</p>
+    <div class="sources-grid">
+      <a href="https://cert.ssi.gouv.fr" target="_blank" class="source-card"><span class="source-name">ANSSI / CERT-FR</span><span class="source-tag">Officiel</span></a>
+      <a href="https://thehackernews.com" target="_blank" class="source-card"><span class="source-name">The Hacker News</span><span class="source-tag">Sécurité</span></a>
+      <a href="https://bleepingcomputer.com" target="_blank" class="source-card"><span class="source-name">BleepingComputer</span><span class="source-tag">Sécurité</span></a>
+      <a href="https://krebsonsecurity.com" target="_blank" class="source-card"><span class="source-name">Krebs on Security</span><span class="source-tag">Analyse</span></a>
+      <a href="https://lemagit.fr" target="_blank" class="source-card"><span class="source-name">LeMagIT</span><span class="source-tag">Tech FR</span></a>
+      <a href="https://cve.org" target="_blank" class="source-card"><span class="source-name">CVE MITRE</span><span class="source-tag">CVE</span></a>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- SYNTHESE -->
+<section id="synthese">
+  <div class="section-wrap">
+    <div class="section-label">04 — Récapitulatif</div>
+    <h2 class="section-title">Tableau de <em>Synthèse</em></h2>
+    <div class="synthese-table-wrap">
+      <table class="synthese-table">
+        <thead><tr><th>#</th><th>Projet</th><th>Technologie(s)</th><th>Compétence clé</th><th>Épreuve</th><th>Statut</th></tr></thead>
+        <tbody>
+          <tr><td>01</td><td class="td-proj">VLAN & Routage Inter-VLAN</td><td>Cisco IOS, Packet Tracer</td><td>Segmentation réseau, Trunk 802.1Q</td><td>E5</td><td><span class="badge-ok">✓ Réalisé</span></td></tr>
+          <tr><td>02</td><td class="td-proj">Filtrage ACL</td><td>Cisco IOS, Packet Tracer</td><td>ACL étendues, filtrage applicatif</td><td>E5</td><td><span class="badge-ok">✓ Réalisé</span></td></tr>
+          <tr><td>03</td><td class="td-proj">pfSense & Proxmox</td><td>pfSense, Proxmox VE</td><td>Pare-feu, virtualisation, WAN/LAN</td><td>E5</td><td><span class="badge-ok">✓ Réalisé</span></td></tr>
+          <tr><td>04</td><td class="td-proj">Active Directory (AD DS)</td><td>Windows Server 2022</td><td>AD DS, DNS, DHCP, domaine</td><td>E5</td><td><span class="badge-ok">✓ Réalisé</span></td></tr>
+          <tr><td>05</td><td class="td-proj">GPO & Sécurisation postes</td><td>Windows Server 2022, GPMC</td><td>Politiques de groupe, durcissement</td><td>E5</td><td><span class="badge-ok">✓ Réalisé</span></td></tr>
+          <tr><td>06</td><td class="td-proj">SSH & Clés RSA 4096</td><td>Debian 12, OpenSSH, UFW</td><td>Admin distante, cryptographie asymétrique</td><td>E5</td><td><span class="badge-ok">✓ Réalisé</span></td></tr>
+          <tr><td>07</td><td class="td-proj">Haute Disponibilité HSRP</td><td>Cisco IOS, Packet Tracer</td><td>HSRP, redondance, load balancing</td><td>E5</td><td><span class="badge-ok">✓ Réalisé</span></td></tr>
+          <tr><td>E6-1</td><td class="td-proj">GLPI + pfSense (ESXi)</td><td>ESXi, pfSense, Debian 12, LAMP</td><td>ITSM, MFA, virtualisation</td><td>E6</td><td><span class="badge-ok">✓ Réalisé</span></td></tr>
+          <tr><td>E6-2</td><td class="td-proj">Infrastructure Réseau Novalink</td><td>Cisco 1841 & 2960, IOS</td><td>VLAN, DHCP, NAT, routage WAN</td><td>E6</td><td><span class="badge-ok">✓ Réalisé</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="contact-inner">
+      <div class="section-label">05 — Me contacter</div>
+      <h2 class="section-title">Prenons <em>contact</em></h2>
+      <p class="contact-desc">N'hésitez pas à me contacter pour toute question concernant mon parcours, mes projets ou pour une opportunité professionnelle.</p>
+      <div class="contact-links">
+        <a href="mailto:TouraySalimou68@gmail.com" class="contact-link"><div class="cl-icon">✉️</div><div class="cl-info"><div class="lbl">Email</div><div class="val">TouraySalimou68@gmail.com</div></div></a>
+        <a href="https://www.linkedin.com/in/salimou-touray-02ba06327/" target="_blank" class="contact-link"><div class="cl-icon">💼</div><div class="cl-info"><div class="lbl">LinkedIn</div><div class="val">Salimou Touray</div></div></a>
+        <a href="https://github.com/touraysalimou68-byte" target="_blank" class="contact-link"><div class="cl-icon">⌨️</div><div class="cl-info"><div class="lbl">GitHub</div><div class="val">touraysalimou68-byte</div></div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">ST.</div>
+  <div class="footer-copy">© 2026 Salimou Touray — BTS SIO SISR</div>
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/in/salimou-touray-02ba06327/" target="_blank">LinkedIn</a>
+    <a href="https://github.com/touraysalimou68-byte" target="_blank">GitHub</a>
+    <a href="mailto:TouraySalimou68@gmail.com">Email</a>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-badge" id="modal-badge">PROJET E5</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-title" id="modal-title"></div>
+      <div class="modal-date" id="modal-date"></div>
+      <div class="modal-desc" id="modal-desc"></div>
+      <a class="modal-pdf-btn" id="modal-pdf" href="#" target="_blank">📄 Voir le Dossier Complet (PDF)</a>
+      <div class="modal-section-title">🎯 Objectifs & Réalisations</div>
+      <div class="modal-objectives" id="modal-obj"></div>
+      <div class="modal-section-title">💻 Environnement technique</div>
+      <div class="modal-tags" id="modal-tags"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const e5Data = [
+  { id:1, titre:"Segmentation VLAN & Routage Inter-VLAN", desc:"Segmentation d'un réseau d'entreprise en 4 VLANs (Administration, RH, Finance, IT) avec routage inter-VLAN via Router-on-a-Stick et DHCP automatisé par VLAN.", date:"Projet GTECH", pdf:"INTER-VLAN S.pdf", objectifs:["Création & affectation des VLANs (10/20/30/40)","Routage inter-VLAN (Router-on-a-Stick / dot1Q)","Configuration DHCP par VLAN sur le routeur","Sécurisation des ports Access & Trunk"], env:["Cisco Routeur 2911","Cisco Switch 2960","Packet Tracer","IOS Cisco"] },
+  { id:2, titre:"Filtrage réseau par Listes de Contrôle d'Accès (ACL)", desc:"Déploiement d'ACL étendues sur un routeur Cisco pour autoriser uniquement le trafic HTTP vers un serveur web et bloquer tout accès vers un serveur sensible.", date:"Projet GTECH", pdf:"ACL S.pdf", objectifs:["Création d'ACL étendues (liste 100)","Autorisation trafic HTTP (port 80)","Blocage total des accès vers Serveur 2","Validation par Ping, Telnet & navigateur"], env:["Cisco Routeur 2901","Cisco Switch 2960","Packet Tracer","IOS Cisco"] },
+  { id:3, titre:"Infrastructure sécurisée : pfSense & Proxmox", desc:"Déploiement d'un réseau physique sécurisé avec pare-feu pfSense assurant la segmentation WAN/LAN et hyperviseur Proxmox VE pour la virtualisation.", date:"Projet GTECH", pdf:"PROXMOX PFSENSE S.pdf", objectifs:["Installation pfSense (passerelle WAN→LAN)","Configuration Proxmox VE (hyperviseur)","Plan d'adressage IP statique (192.168.10.0/24)","Tests de connectivité et sortie Internet"], env:["pfSense 2.7","Proxmox VE 9","Switch Gigabit","Réseau physique"] },
+  { id:4, titre:"Contrôleur de Domaine Active Directory & DNS/DHCP", desc:"Déploiement d'une infrastructure Active Directory complète avec Windows Server 2022, DNS, DHCP et intégration d'un poste client Windows 10 au domaine labo.local.", date:"Projet GTECH", pdf:"ADDS S.pdf", objectifs:["Déploiement pfSense virtuel (WAN/LAN)","Installation WS 2022 & promotion contrôleur de domaine","Configuration DNS interne (labo.local) & DHCP","Jonction d'un poste Windows 10 au domaine"], env:["Windows Server 2022","Proxmox VE","pfSense virtuel","Windows 10"] },
+  { id:5, titre:"Stratégies de Groupe (GPO) & Sécurisation des postes", desc:"Mise en place de 4 GPO sur un contrôleur de domaine AD pour automatiser le mappage de lecteurs réseau, imposer un fond d'écran et restreindre les outils système.", date:"Projet GTECH", pdf:"GPO S.pdf", objectifs:["GPO 1 : Mappage automatique d'un lecteur réseau","GPO 2 : Fond d'écran d'entreprise imposé","GPO 3 : Blocage du Panneau de configuration","GPO 4 : Désactivation de l'invite de commandes"], env:["Windows Server 2022","Active Directory","GPMC","Windows 10"] },
+  { id:6, titre:"Administration distante SSH avec clés RSA (Linux)", desc:"Sécurisation de l'administration à distance d'un serveur Debian 12 : remplacement du mot de passe par clés RSA 4096 bits, durcissement SSH et configuration UFW.", date:"Projet GTECH", pdf:"SSH S.pdf", objectifs:["Création utilisateur admin avec droits sudo","Génération clés RSA 4096 bits et transfert","SSH durci : port 2222, root interdit, pwd désactivé","Configuration UFW et tests de connexion"], env:["Debian 12","OpenSSH","UFW","PowerShell (client)"] },
+  { id:7, titre:"Haute Disponibilité réseau : HSRP & Load Balancing", desc:"Architecture haute disponibilité avec deux routeurs Cisco et le protocole HSRP, garantissant la redondance de passerelle et la répartition de charge entre 2 VLANs.", date:"Projet GTECH", pdf:"HSRP S.pdf", objectifs:["HSRP Active/Standby sur 2 groupes (VLAN 10 & 20)","Load Balancing actif/actif entre les routeurs","Test de bascule automatique (Failover)","Segmentation Layer 2 avec VLANs dédiés"], env:["Cisco Routeur 2911","Cisco Switch 2960","Packet Tracer","HSRP"] }
+];
+
+const e6Data = [
+  { id:'E6-1', titre:"GLPI + pfSense — Système de Ticketing sécurisé", desc:"Déploiement d'un serveur GLPI sur VM Debian 12, isolé derrière un pare-feu pfSense virtualisé sous ESXi. Pile LAMP, routage WAN/LAN et MFA pour l'administrateur.", date:"Mars 2026 — CFA INSTA", pdf:"GLPI_PFSENSE_S.pdf", objectifs:["Déploiement pfSense (WAN 20.0.0.125 / LAN 192.168.55.0/24)","Installation Debian 12 en VM (IP statique 192.168.55.54)","Installation pile LAMP (Apache, MariaDB, PHP) et GLPI","Sécurisation accès admin via MFA"], env:["ESXi","pfSense","Debian 12","GLPI","Apache","MariaDB"] },
+  { id:'E6-2', titre:"Infrastructure Réseau Novalink — VLAN, DHCP & WAN", desc:"Restructuration complète du réseau local de Novalink : VLAN 2 & 3, routage inter-VLAN Router-on-a-Stick, DHCP automatisé et accès WAN via NAT sur Cisco 1841.", date:"Mars 2026 — CFA INSTA", pdf:"Projet_E6_Reseau.pdf", objectifs:["VLAN 2 & VLAN 3 sur Cisco 2960 (Trunk 802.1Q)","Routage inter-VLAN Router-on-a-Stick (Cisco 1841)","DHCP sur routeur — 2 pools distincts par VLAN","Accès WAN via NAT + tests Ping / IPConfig"], env:["Cisco 1841","Cisco 2960","Packet Tracer","IOS Cisco","NAT","DHCP"] }
+];
+
+const fichesData = [
+  { num:1, date:"Janvier 2026", type:"Veille Sécurité", crit:"ÉLEVÉ", critClass:"crit-high", titre:"L'IA Générative industrialise le phishing — LLM & mails ciblés", resume:"Les LLM (GPT-4, Mistral) sont désormais utilisés pour générer des campagnes de phishing parfaitement rédigées et contextualisées via OSINT (LinkedIn). Les filtres basés sur les fautes orthographiques deviennent totalement inefficaces.", source:"The Hacker News — CERT-FR — Rapport ANSSI 2025", impact:"Hausse estimée de +60% des tentatives réussies depuis l'émergence des LLM.", action:"Déployer SPF/DKIM/DMARC. Adopter un filtre anti-phishing comportemental (EDR).", lien:"Lien direct avec la configuration des pare-feu (pfSense, ACL Cisco). La sécurité périmétrique seule ne suffit plus." },
+  { num:2, date:"Février 2026", type:"Veille Sécurité", crit:"CRITIQUE", critClass:"crit-critical", titre:"Deepfake à 25M$ — Clonage vidéo en temps réel (Hong Kong, 2024)", resume:"En février 2024, une multinationale a perdu 25 millions de dollars. Un employé a effectué des virements après une visioconférence où tous les participants sauf lui étaient des Deepfakes IA imitant le directeur financier.", source:"CNN Business (02/2024) — BleepingComputer (07/02/2024)", impact:"Les entreprises ne peuvent plus se fier à la seule reconnaissance visuelle/vocale pour valider une demande sensible.", action:"Codes de vérification internes pour les demandes financières. MFA sur tous les accès critiques.", lien:"Mis en pratique : déploiement du MFA sur GLPI lors de ma réalisation E6 (Mars 2026)." },
+  { num:3, date:"Mars 2026", type:"Veille Réglementaire", crit:"MOYEN", critClass:"crit-med", titre:"Directive NIS2 — Nouvelles obligations de cybersécurité en France", resume:"La directive NIS2, transposée en France, étend les obligations de cybersécurité à plus de 10 000 entités. Elle impose une déclaration d'incident sous 24h, des audits réguliers et la formation obligatoire des équipes SI.", source:"ANSSI (anssi.gouv.fr) — CNIL (cnil.fr) — Guide NIS2 2025", impact:"Les entreprises doivent documenter leurs pratiques de sécurité sous peine de sanctions financières.", action:"Suivre les bulletins ANSSI. Documenter les procédures de gestion d'incidents.", lien:"En lien avec les projets E5 : gestion des logs, traçabilité des accès SSH (Debian 12)." },
+  { num:4, date:"Avril 2026", type:"Veille Technologique", crit:"ÉLEVÉ", critClass:"crit-high", titre:"FraudGPT & WormGPT — LLM malveillants sur le Dark Web", resume:"Des variantes de LLM sans garde-fous éthiques (FraudGPT, WormGPT) sont commercialisées sur le Dark Web (~200$/mois). Elles génèrent automatiquement des malwares, kits de phishing et scripts d'exploitation.", source:"Krebs on Security — The Hacker News (2024)", impact:"Démocratisation des cyberattaques avancées. Des attaquants sans compétences techniques lancent des attaques sophistiquées.", action:"Déployer des solutions EDR/XDR comportementales. Patch management rigoureux. Surveiller les CVE via NVD NIST.", lien:"Lien avec E5 : segmentation VLAN et ACL pour limiter la propagation latérale en cas d'intrusion." }
+];
+
+// Render E5
+const e5Grid = document.getElementById('e5-grid');
+e5Data.forEach(p => {
+  const card = document.createElement('div');
+  card.className = 'proj-card fade-up';
+  card.innerHTML = `<div class="proj-num">Projet E5 — #${String(p.id).padStart(2,'0')}</div><div class="proj-title">${p.titre}</div><div class="proj-desc">${p.desc}</div><div class="proj-tags">${p.env.slice(0,3).map(e=>`<span class="tag">${e}</span>`).join('')}</div><div class="proj-footer"><span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--faint)">${p.date}</span><span class="proj-arrow">Voir →</span></div>`;
+  card.onclick = () => openModal(p, 'E5');
+  e5Grid.appendChild(card);
+});
+
+// Render E6
+const e6Grid = document.getElementById('e6-grid');
+e6Data.forEach(p => {
+  const card = document.createElement('div');
+  card.className = 'e6-card';
+  card.innerHTML = `<div class="e6-num">Réalisation ${p.id}</div><div class="e6-title">${p.titre}</div><div class="e6-meta">📅 ${p.date}</div><div class="e6-desc">${p.desc}</div><ul class="e6-objectives">${p.objectifs.map(o=>`<li>${o}</li>`).join('')}</ul><div class="proj-tags" style="margin-bottom:16px">${p.env.map(e=>`<span class="tag">${e}</span>`).join('')}</div><a href="${p.pdf}" target="_blank" class="e6-btn">📄 Voir le dossier PDF</a>`;
+  e6Grid.appendChild(card);
+});
+
+// Render Fiches
+const fichesContainer = document.getElementById('fiches-container');
+fichesData.forEach(f => {
+  const el = document.createElement('div');
+  el.className = 'fiche fade-up';
+  el.innerHTML = `<div class="fiche-head" onclick="toggleFiche(this.parentElement)"><div class="fiche-meta"><span class="fiche-num">Fiche #${f.num}</span><span class="fiche-date">📅 ${f.date}</span><span class="fiche-type">${f.type}</span><span class="fiche-crit ${f.critClass}">⚠ ${f.crit}</span></div><div class="fiche-title">${f.titre}</div><div class="fiche-toggle">+</div></div><div class="fiche-body"><p class="fiche-resume">${f.resume}</p><div class="fiche-details"><div class="fiche-detail"><div class="det-label">Source</div><div class="det-val">${f.source}</div></div><div class="fiche-detail"><div class="det-label">Impact</div><div class="det-val">${f.impact}</div></div><div class="fiche-detail"><div class="det-label">Action recommandée</div><div class="det-val">${f.action}</div></div><div class="fiche-detail"><div class="det-label">Lien avec la formation</div><div class="det-val">${f.lien}</div></div></div></div>`;
+  fichesContainer.appendChild(el);
+});
+
+// Modal
+function openModal(p, type) {
+  document.getElementById('modal-badge').textContent = 'PROJET ' + type;
+  document.getElementById('modal-title').textContent = p.titre;
+  document.getElementById('modal-date').textContent = p.date;
+  document.getElementById('modal-desc').textContent = p.desc;
+  document.getElementById('modal-pdf').href = p.pdf;
+  document.getElementById('modal-obj').innerHTML = p.objectifs.map(o=>`<div class="modal-obj">${o}</div>`).join('');
+  document.getElementById('modal-tags').innerHTML = p.env.map(e=>`<span class="tag">${e}</span>`).join('');
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() { document.getElementById('modal').classList.remove('open'); document.body.style.overflow = ''; }
+function closeModalOutside(e) { if(e.target===document.getElementById('modal')) closeModal(); }
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+// Fiche toggle
+function toggleFiche(el) { el.classList.toggle('open'); }
+
+// Typewriter
+const phrases = ['Administrateur Systèmes & Réseaux','Passionné par la Cybersécurité','BTS SIO SISR — Session 2026','Expert Cisco / pfSense / Linux'];
+let pi=0, ci=0, deleting=false;
+const typedEl = document.getElementById('typed-text');
+function typeLoop() {
+  const phrase = phrases[pi];
+  if(!deleting) { typedEl.textContent = phrase.slice(0, ++ci); if(ci===phrase.length){deleting=true;setTimeout(typeLoop,1800);return;} }
+  else { typedEl.textContent = phrase.slice(0, --ci); if(ci===0){deleting=false;pi=(pi+1)%phrases.length;} }
+  setTimeout(typeLoop, deleting?40:70);
+}
+typeLoop();
+
+// Nav active
+const sections = document.querySelectorAll('section[id]');
+const navAnchors = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY + 100;
+  sections.forEach(s => { if(y>=s.offsetTop && y<s.offsetTop+s.offsetHeight) navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href')==='#'+s.id)); });
+});
+
+// Hamburger
+function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+
+// Fade up observer
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} }), {threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
