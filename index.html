@@ -134,7 +134,7 @@ hr.sep { border: none; border-top: 1px solid var(--border); margin: 0; }
 .skill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--faint); }
 .skill-dot.on { background: var(--amber); box-shadow: 0 0 4px rgba(245,158,11,0.5); }
 
-/* E5 CARDS */
+/* CARDS */
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 20px; }
 .proj-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r2); padding: 24px; cursor: pointer; transition: all 0.25s; display: flex; flex-direction: column; gap: 12px; position: relative; overflow: hidden; }
 .proj-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--amber), transparent); opacity: 0; transition: opacity 0.3s; }
@@ -149,10 +149,11 @@ hr.sep { border: none; border-top: 1px solid var(--border); margin: 0; }
 .proj-arrow { font-size: 0.75rem; color: var(--amber); opacity: 0; transition: all 0.2s; font-family: var(--font-mono); }
 .proj-card:hover .proj-arrow { opacity: 1; transform: translateX(3px); }
 
-/* E6 */
+/* E6 (Modifié pour ressembler à E5 au niveau du clic) */
 #e6 { background: var(--surface); }
 .e6-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.e6-card { background: var(--card); border: 1px solid rgba(34,211,238,0.15); border-radius: var(--r2); padding: 32px; position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 0; }
+.e6-card { background: var(--card); border: 1px solid rgba(34,211,238,0.15); border-radius: var(--r2); padding: 32px; position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 0; transition: all 0.25s; cursor: pointer; }
+.e6-card:hover { border-color: rgba(34,211,238,0.4); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
 .e6-card::after { content: 'E6'; position: absolute; top: 20px; right: 20px; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--cyan); background: rgba(34,211,238,0.08); border: 1px solid rgba(34,211,238,0.2); padding: 3px 10px; border-radius: 4px; }
 .e6-num { font-family: var(--font-mono); font-size: 0.65rem; color: var(--cyan); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
 .e6-title { font-family: var(--font-head); font-weight: 700; font-size: 1.2rem; line-height: 1.3; color: var(--text); margin-bottom: 8px; padding-right: 48px; }
@@ -161,8 +162,8 @@ hr.sep { border: none; border-top: 1px solid var(--border); margin: 0; }
 .e6-objectives { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; flex-grow: 1; }
 .e6-objectives li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.875rem; color: var(--muted); }
 .e6-objectives li::before { content: '▸'; color: var(--cyan); flex-shrink: 0; }
-.e6-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 11px 20px; border-radius: 8px; background: rgba(34,211,238,0.06); border: 1px solid rgba(34,211,238,0.2); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cyan); transition: all 0.2s; margin-top: auto; }
-.e6-btn:hover { background: rgba(34,211,238,0.12); border-color: var(--cyan); transform: translateY(-1px); }
+.e6-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 11px 20px; border-radius: 8px; background: rgba(34,211,238,0.06); border: 1px solid rgba(34,211,238,0.2); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cyan); transition: all 0.2s; margin-top: auto; pointer-events: none; }
+.e6-card:hover .e6-btn { background: rgba(34,211,238,0.12); border-color: var(--cyan); }
 
 /* VEILLE */
 #veille { background: var(--bg); }
@@ -305,7 +306,6 @@ footer { position: relative; z-index: 1; background: var(--surface); border-top:
   </div>
 </nav>
 
-<!-- HERO -->
 <section id="home">
   <div class="hero-inner">
     <div class="hero-text">
@@ -342,7 +342,6 @@ footer { position: relative; z-index: 1; background: var(--surface); border-top:
 
 <hr class="sep">
 
-<!-- ABOUT -->
 <section id="about">
   <div class="section-wrap">
     <div class="section-label">00 — Qui suis-je</div>
@@ -377,7 +376,6 @@ footer { position: relative; z-index: 1; background: var(--surface); border-top:
 
 <hr class="sep">
 
-<!-- E5 -->
 <section id="e5">
   <div class="section-wrap">
     <div class="section-label">01 — Infrastructure</div>
@@ -388,7 +386,6 @@ footer { position: relative; z-index: 1; background: var(--surface); border-top:
 
 <hr class="sep">
 
-<!-- E6 -->
 <section id="e6">
   <div class="section-wrap">
     <div class="section-label">02 — Projets professionnels</div>
@@ -400,7 +397,6 @@ footer { position: relative; z-index: 1; background: var(--surface); border-top:
 
 <hr class="sep">
 
-<!-- VEILLE -->
 <section id="veille">
   <div class="section-wrap">
     <div class="section-label">03 — Journal de veille</div>
@@ -434,7 +430,6 @@ footer { position: relative; z-index: 1; background: var(--surface); border-top:
 
 <hr class="sep">
 
-<!-- SYNTHESE -->
 <section id="synthese">
   <div class="section-wrap">
     <div class="section-label">04 — Récapitulatif</div>
@@ -460,7 +455,6 @@ footer { position: relative; z-index: 1; background: var(--surface); border-top:
 
 <hr class="sep">
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="section-wrap">
     <div class="contact-inner">
@@ -486,7 +480,6 @@ footer { position: relative; z-index: 1; background: var(--surface); border-top:
   </div>
 </footer>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
   <div class="modal">
     <div class="modal-header">
@@ -518,8 +511,8 @@ const e5Data = [
 ];
 
 const e6Data = [
-  { id:'E6-1', titre:"GLPI + pfSense — Système de Ticketing sécurisé", desc:"Déploiement d'un serveur GLPI sur VM Debian 12, isolé derrière un pare-feu pfSense virtualisé sous ESXi. Pile LAMP, routage WAN/LAN et MFA pour l'administrateur.", date:"Mars 2026 — CFA INSTA", pdf:"GLPI_PFSENSE_S.pdf", objectifs:["Déploiement pfSense (WAN 20.0.0.125 / LAN 192.168.55.0/24)","Installation Debian 12 en VM (IP statique 192.168.55.54)","Installation pile LAMP (Apache, MariaDB, PHP) et GLPI","Sécurisation accès admin via MFA"], env:["ESXi","pfSense","Debian 12","GLPI","Apache","MariaDB"] },
-  { id:'E6-2', titre:"Infrastructure Réseau Novalink — VLAN, DHCP & WAN", desc:"Restructuration complète du réseau local de Novalink : VLAN 2 & 3, routage inter-VLAN Router-on-a-Stick, DHCP automatisé et accès WAN via NAT sur Cisco 1841.", date:"Mars 2026 — CFA INSTA", pdf:"Projet_E6_Reseau.pdf", objectifs:["VLAN 2 & VLAN 3 sur Cisco 2960 (Trunk 802.1Q)","Routage inter-VLAN Router-on-a-Stick (Cisco 1841)","DHCP sur routeur — 2 pools distincts par VLAN","Accès WAN via NAT + tests Ping / IPConfig"], env:["Cisco 1841","Cisco 2960","Packet Tracer","IOS Cisco","NAT","DHCP"] }
+  { id:'1', titre:"Ticketing centralisé (GLPI) en infrastructure sécurisée", desc:"Déploiement d'un serveur d'assistance (GLPI) hébergé sur le LAN, isolé et protégé par un pare-feu (pfSense) gérant les flux entre le réseau extérieur (WAN) et le réseau local.", date:"Mars 2026 — CFA INSTA", pdf:"SLM 2.pdf", objectifs:["Déploiement et configuration du pare-feu pfSense (Interfaces WAN/LAN)","Préparation du socle système (Debian 12) en IP statique","Installation des services Web (LAMP) et de GLPI","Sécurisation de l'accès administrateur via MFA"], env:["ESXi","pfSense","Debian 12","GLPI","Apache","MariaDB"] },
+  { id:'2', titre:"Infrastructure réseau segmentée avec WAN et DHCP", desc:"Restructuration complète du réseau local avec un routeur Cisco 1841 et switch 2960. Création de VLANs, routage inter-VLAN, distribution dynamique d'IP (DHCP) et accès WAN (NAT).", date:"Mars 2026 — CFA INSTA", pdf:"SLM 1.pdf", objectifs:["Création des VLANs 2 et 3 sur le commutateur Cisco 2960","Configuration Trunk (802.1Q) et routage inter-VLAN (Router-on-a-stick)","Mise en place de pools DHCP distincts par VLAN sur le routeur","Configuration de l'accès WAN via le NAT"], env:["Cisco 1841","Cisco 2960","IOS Cisco","Packet Tracer","DHCP","NAT"] }
 ];
 
 const fichesData = [
@@ -543,8 +536,9 @@ e5Data.forEach(p => {
 const e6Grid = document.getElementById('e6-grid');
 e6Data.forEach(p => {
   const card = document.createElement('div');
-  card.className = 'e6-card';
-  card.innerHTML = `<div class="e6-num">Réalisation ${p.id}</div><div class="e6-title">${p.titre}</div><div class="e6-meta">📅 ${p.date}</div><div class="e6-desc">${p.desc}</div><ul class="e6-objectives">${p.objectifs.map(o=>`<li>${o}</li>`).join('')}</ul><div class="proj-tags" style="margin-bottom:16px">${p.env.map(e=>`<span class="tag">${e}</span>`).join('')}</div><a href="${p.pdf}" target="_blank" class="e6-btn">📄 Voir le dossier PDF</a>`;
+  card.className = 'e6-card fade-up';
+  card.innerHTML = `<div class="e6-num">Réalisation ${p.id}</div><div class="e6-title">${p.titre}</div><div class="e6-meta">📅 ${p.date}</div><div class="e6-desc">${p.desc}</div><ul class="e6-objectives">${p.objectifs.map(o=>`<li>${o}</li>`).join('')}</ul><div class="proj-tags" style="margin-bottom:16px">${p.env.map(e=>`<span class="tag">${e}</span>`).join('')}</div><div class="e6-btn">🔍 Voir les détails</div>`;
+  card.onclick = () => openModal(p, 'E6');
   e6Grid.appendChild(card);
 });
 
@@ -598,6 +592,13 @@ window.addEventListener('scroll', () => {
 
 // Hamburger
 function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+
+// Fermer le menu mobile lors d'un clic sur un lien
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
 
 // Fade up observer
 const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} }), {threshold:0.1});
