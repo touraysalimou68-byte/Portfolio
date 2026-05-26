@@ -149,7 +149,7 @@ hr.sep { border: none; border-top: 1px solid var(--border); margin: 0; }
 .proj-arrow { font-size: 0.75rem; color: var(--amber); opacity: 0; transition: all 0.2s; font-family: var(--font-mono); }
 .proj-card:hover .proj-arrow { opacity: 1; transform: translateX(3px); }
 
-/* E6 (Modifié pour ressembler à E5 au niveau du clic) */
+/* E6 (Intégration de la fiche de situation pro) */
 #e6 { background: var(--surface); }
 .e6-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .e6-card { background: var(--card); border: 1px solid rgba(34,211,238,0.15); border-radius: var(--r2); padding: 32px; position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 0; transition: all 0.25s; cursor: pointer; }
@@ -164,6 +164,14 @@ hr.sep { border: none; border-top: 1px solid var(--border); margin: 0; }
 .e6-objectives li::before { content: '▸'; color: var(--cyan); flex-shrink: 0; }
 .e6-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 11px 20px; border-radius: 8px; background: rgba(34,211,238,0.06); border: 1px solid rgba(34,211,238,0.2); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cyan); transition: all 0.2s; margin-top: auto; pointer-events: none; }
 .e6-card:hover .e6-btn { background: rgba(34,211,238,0.12); border-color: var(--cyan); }
+
+/* Encadré d'accès productions */
+.prod-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--r2); padding: 24px; margin-bottom: 2.5rem; max-width: 850px; }
+.prod-box h3 { font-family: var(--font-mono); font-size: 0.95rem; color: var(--amber); margin-bottom: 8px; font-weight: 700; }
+.prod-box p { color: var(--muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 12px; }
+.prod-box .link-p { font-family: var(--font-mono); font-size: 0.85rem; color: var(--cyan); }
+.prod-box .link-p a { color: var(--text); text-decoration: underline; transition: color 0.2s; }
+.prod-box .link-p a:hover { color: var(--amber); }
 
 /* VEILLE */
 #veille { background: var(--bg); }
@@ -390,7 +398,13 @@ footer { position: relative; z-index: 1; background: var(--surface); border-top:
   <div class="section-wrap">
     <div class="section-label">02 — Projets professionnels</div>
     <h2 class="section-title">Épreuve <em>E6</em></h2>
-    <p style="color:var(--muted);margin-bottom:2.5rem;max-width:600px;font-size:0.95rem">Réalisations professionnelles effectuées au sein de l'entreprise <strong style="color:var(--text)">Novalink</strong> — Administration des systèmes et des réseaux — Session 2026.</p>
+    
+    <div class="prod-box fade-up">
+      <h3>📁 Accès à l'ensemble des productions</h3>
+      <p>Tous les dossiers techniques complets sont accessibles depuis ce portfolio. Chaque fiche fait référence à une réalisation concrète effectuée dans un environnement virtualisé (Proxmox VE / VMware ESXi) et documentée conformément au référentiel du BTS SIO.</p>
+      <div class="link-p">Portfolio en ligne : <a href="https://portfolio-hazel-three-97.vercel.app/" target="_blank">portfolio-hazel-three-97.vercel.app</a></div>
+    </div>
+
     <div class="e6-grid" id="e6-grid"></div>
   </div>
 </section>
@@ -434,19 +448,120 @@ footer { position: relative; z-index: 1; background: var(--surface); border-top:
   <div class="section-wrap">
     <div class="section-label">04 — Récapitulatif</div>
     <h2 class="section-title">Tableau de <em>Synthèse</em></h2>
+    
+    <div class="prod-box fade-up" style="border-color: rgba(34,211,238,0.2);">
+      <h3 style="color: var(--cyan);">BTS SIO — SESSION 2026</h3>
+      <p style="color: var(--text); font-weight: 700; font-size: 1.1rem; margin-bottom: 4px;">Tableau de Synthèse des Réalisations Professionnelles</p>
+      <p style="margin-bottom: 16px;">Document officiel — <strong>TOURAY Salimou</strong> · N° <strong>02542532566</strong> · CFA INSTA · Option SISR</p>
+      <a href="tableau-synthese-e5%20S%20.pdf" target="_blank" class="btn-ghost" style="padding: 8px 16px; font-size: 0.75rem; border-color: var(--cyan); color: var(--cyan); display: inline-flex; align-items: center; gap: 8px;">
+        📄 Voir le Tableau de Synthèse (PDF)
+      </a>
+    </div>
+
     <div class="synthese-table-wrap">
       <table class="synthese-table">
-        <thead><tr><th>#</th><th>Projet</th><th>Technologie(s)</th><th>Compétence clé</th><th>Épreuve</th><th>Statut</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Projet / Réalisation</th>
+            <th style="text-align:center;">Patrimoine IT</th>
+            <th style="text-align:center;">Incidents</th>
+            <th style="text-align:center;">Présence en ligne</th>
+            <th style="text-align:center;">Mode Projet</th>
+            <th style="text-align:center;">Services IT</th>
+            <th style="text-align:center;">Dev. Pro</th>
+          </tr>
+        </thead>
         <tbody>
-          <tr><td>01</td><td class="td-proj">VLAN & Routage Inter-VLAN</td><td>Cisco IOS, Packet Tracer</td><td>Segmentation réseau, Trunk 802.1Q</td><td>E5</td><td><span class="badge-ok">✓ Réalisé</span></td></tr>
-          <tr><td>02</td><td class="td-proj">Filtrage ACL</td><td>Cisco IOS, Packet Tracer</td><td>ACL étendues, filtrage applicatif</td><td>E5</td><td><span class="badge-ok">✓ Réalisé</span></td></tr>
-          <tr><td>03</td><td class="td-proj">pfSense & Proxmox</td><td>pfSense, Proxmox VE</td><td>Pare-feu, virtualisation, WAN/LAN</td><td>E5</td><td><span class="badge-ok">✓ Réalisé</span></td></tr>
-          <tr><td>04</td><td class="td-proj">Active Directory (AD DS)</td><td>Windows Server 2022</td><td>AD DS, DNS, DHCP, domaine</td><td>E5</td><td><span class="badge-ok">✓ Réalisé</span></td></tr>
-          <tr><td>05</td><td class="td-proj">GPO & Sécurisation postes</td><td>Windows Server 2022, GPMC</td><td>Politiques de groupe, durcissement</td><td>E5</td><td><span class="badge-ok">✓ Réalisé</span></td></tr>
-          <tr><td>06</td><td class="td-proj">SSH & Clés RSA 4096</td><td>Debian 12, OpenSSH, UFW</td><td>Admin distante, cryptographie asymétrique</td><td>E5</td><td><span class="badge-ok">✓ Réalisé</span></td></tr>
-          <tr><td>07</td><td class="td-proj">Haute Disponibilité HSRP</td><td>Cisco IOS, Packet Tracer</td><td>HSRP, redondance, load balancing</td><td>E5</td><td><span class="badge-ok">✓ Réalisé</span></td></tr>
-          <tr><td>E6-1</td><td class="td-proj">GLPI + pfSense (ESXi)</td><td>ESXi, pfSense, Debian 12, LAMP</td><td>ITSM, MFA, virtualisation</td><td>E6</td><td><span class="badge-ok">✓ Réalisé</span></td></tr>
-          <tr><td>E6-2</td><td class="td-proj">Infrastructure Réseau Novalink</td><td>Cisco 1841 & 2960, IOS</td><td>VLAN, DHCP, NAT, routage WAN</td><td>E6</td><td><span class="badge-ok">✓ Réalisé</span></td></tr>
+          <tr>
+            <td class="td-proj">1. VLAN & Routage (GTECH)</td>
+            <td style="text-align:center; color:var(--amber); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center; color:var(--amber); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td class="td-proj">2. Filtrage ACL (GTECH)</td>
+            <td style="text-align:center; color:var(--amber); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center; color:var(--amber); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td class="td-proj">3. pfSense & Proxmox (GTECH)</td>
+            <td style="text-align:center; color:var(--amber); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center; color:var(--amber); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td class="td-proj">4. Active Directory (GTECH)</td>
+            <td style="text-align:center; color:var(--amber); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center; color:var(--amber); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td class="td-proj">5. GPO & Sécurisation (GTECH)</td>
+            <td style="text-align:center; color:var(--amber); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center; color:var(--amber); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td class="td-proj">6. SSH & Clés RSA (GTECH)</td>
+            <td style="text-align:center; color:var(--amber); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center; color:var(--amber); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td class="td-proj">7. Haute Disponibilité HSRP</td>
+            <td style="text-align:center; color:var(--amber); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center; color:var(--amber); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td class="td-proj">E6-1. GLPI + pfSense (Novalink)</td>
+            <td style="text-align:center; color:var(--cyan); font-weight:bold;">✓</td>
+            <td style="text-align:center; color:var(--cyan); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center; color:var(--cyan); font-weight:bold;">✓</td>
+            <td style="text-align:center; color:var(--cyan); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td class="td-proj">E6-2. Infra Réseau Novalink</td>
+            <td style="text-align:center; color:var(--cyan); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center; color:var(--cyan); font-weight:bold;">✓</td>
+            <td style="text-align:center; color:var(--cyan); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+          </tr>
+          <tr>
+            <td class="td-proj">Portfolio & Veille Technologique</td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center; color:var(--amber); font-weight:bold;">✓</td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center;"></td>
+            <td style="text-align:center; color:var(--amber); font-weight:bold;">✓</td>
+          </tr>
         </tbody>
       </table>
     </div>
