@@ -336,6 +336,65 @@ footer { position: relative; z-index: 1; background: var(--surface); border-top:
 .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .fade-up.visible { opacity: 1; transform: translateY(0); }
 
+/* ===== VEILLE — Nouvelle structure style Azaan ===== */
+
+/* Définition */
+.veille-def { background: var(--card); border: 1px solid var(--border); border-radius: var(--r2); padding: 28px 32px; margin-bottom: 20px; display: flex; gap: 20px; align-items: flex-start; }
+.veille-def-icon { font-size: 2.5rem; flex-shrink: 0; line-height: 1; margin-top: 4px; }
+.veille-def-badge { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 10px; }
+.veille-def-text { color: var(--muted); font-size: 0.95rem; line-height: 1.85; }
+.veille-def-text strong { color: var(--text); }
+
+/* Chronologie */
+.veille-chrono-wrap { background: var(--card); border: 1px solid var(--border); border-radius: var(--r2); padding: 28px 32px; margin-bottom: 20px; }
+.veille-chrono-badge { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 28px; }
+.veille-chrono { display: flex; align-items: flex-start; overflow-x: auto; padding-bottom: 8px; position: relative; gap: 0; }
+.chrono-item { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 110px; position: relative; }
+.chrono-item:not(:last-child)::after { content: ''; position: absolute; top: 23px; left: 60%; right: -40%; height: 2px; background: linear-gradient(90deg, rgba(245,158,11,0.5), rgba(245,158,11,0.1)); z-index: 0; }
+.chrono-dot { width: 46px; height: 46px; border-radius: 50%; background: rgba(245,158,11,0.08); border: 2px solid rgba(245,158,11,0.35); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; z-index: 1; margin-bottom: 10px; position: relative; }
+.chrono-year { font-family: var(--font-mono); font-size: 0.65rem; color: var(--amber); margin-bottom: 5px; text-align: center; letter-spacing: 0.05em; }
+.chrono-desc { font-size: 0.72rem; color: var(--muted); text-align: center; line-height: 1.45; padding: 0 4px; }
+
+/* Chiffres clés */
+.veille-chiffres-badge { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.veille-chiffres-badge::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--amber); opacity: 0.4; }
+.chiffres-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 36px; }
+.chiffre-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r2); padding: 24px 20px; text-align: center; transition: all 0.2s; }
+.chiffre-card:hover { border-color: rgba(245,158,11,0.25); transform: translateY(-3px); }
+.chiffre-val { font-family: var(--font-head); font-weight: 900; font-size: clamp(1.6rem,2.5vw,2.2rem); color: var(--amber); line-height: 1; margin-bottom: 8px; letter-spacing: -0.02em; }
+.chiffre-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+/* Présentation veille */
+.vpres-badge { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.vpres-badge::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--amber); opacity: 0.4; }
+.vpres-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
+.vpres-item { background: var(--card); border: 1px solid var(--border); border-radius: var(--r2); overflow: hidden; }
+.vpres-question { display: flex; align-items: center; gap: 16px; padding: 20px 24px; border-bottom: 1px solid var(--border); }
+.vpres-num { width: 34px; height: 34px; border-radius: 50%; background: var(--amber); color: var(--bg); font-family: var(--font-head); font-weight: 900; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.vpres-q-text { font-family: var(--font-head); font-weight: 700; font-size: 1rem; color: var(--text); }
+.vpres-body { padding: 20px 24px; }
+.vpres-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.vpres-card { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--r); padding: 14px; display: flex; gap: 10px; align-items: flex-start; }
+.vpres-card-icon { font-size: 1.2rem; flex-shrink: 0; line-height: 1.3; }
+.vpres-card-title { font-weight: 700; font-size: 0.85rem; color: var(--text); margin-bottom: 4px; }
+.vpres-card-text { font-size: 0.78rem; color: var(--muted); line-height: 1.55; }
+.vpres-career-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 12px; }
+.vpres-career-card { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--r); padding: 14px 10px; text-align: center; }
+.vpres-career-icon { font-size: 1.5rem; margin-bottom: 8px; }
+.vpres-career-title { font-family: var(--font-mono); font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--cyan); margin-bottom: 6px; }
+.vpres-career-text { font-size: 0.72rem; color: var(--muted); line-height: 1.45; }
+.vpres-note { background: rgba(34,211,238,0.04); border: 1px solid rgba(34,211,238,0.15); border-radius: var(--r); padding: 12px 16px; font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+.vpres-note strong { color: var(--text); }
+.auto-rows { display: flex; flex-direction: column; gap: 14px; }
+.auto-row { display: flex; align-items: flex-start; gap: 14px; }
+.auto-key { font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--amber); min-width: 100px; padding-top: 8px; flex-shrink: 0; }
+.auto-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.auto-tag { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.02); border: 1px solid var(--faint); border-radius: 6px; padding: 6px 12px; font-size: 0.78rem; color: var(--muted); }
+.auto-result { background: rgba(245,158,11,0.05); border: 1px solid rgba(245,158,11,0.15); border-radius: var(--r); padding: 14px 16px; display: flex; align-items: center; gap: 10px; margin-top: 14px; font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+.auto-result strong { color: var(--text); }
+.fiches-badge { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.fiches-badge::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--amber); opacity: 0.4; }
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; }
@@ -349,6 +408,8 @@ footer { position: relative; z-index: 1; background: var(--surface); border-top:
   .modal-objectives { grid-template-columns: 1fr; }
   .veille-stats { grid-template-columns: repeat(2,1fr); }
   .methode-steps { grid-template-columns: repeat(2,1fr); }
+  .chiffres-grid { grid-template-columns: repeat(2,1fr); }
+  .vpres-career-grid { grid-template-columns: repeat(2,1fr); }
 }
 @media (max-width: 680px) {
   .nav-links, .nav-cta { display: none; }
@@ -361,6 +422,10 @@ footer { position: relative; z-index: 1; background: var(--surface); border-top:
   .veille-stats { grid-template-columns: repeat(2,1fr); }
   .methode-steps { grid-template-columns: 1fr; }
   .certs-grid { grid-template-columns: 1fr; }
+  .chiffres-grid { grid-template-columns: repeat(2,1fr); }
+  .vpres-cards { grid-template-columns: 1fr; }
+  .vpres-career-grid { grid-template-columns: repeat(2,1fr); }
+  .chrono-item { min-width: 90px; }
 }
 </style>
 </head>
@@ -516,11 +581,13 @@ footer { position: relative; z-index: 1; background: var(--surface); border-top:
   <div class="section-wrap">
     <div class="section-label">03 — Journal de veille</div>
     <h2 class="section-title">Veille <em>Technologique</em></h2>
+
+    <!-- Bannière thème -->
     <div class="veille-hero">
       <div class="veille-theme">
         <div class="veille-badge">Thème unique — Cybersécurité</div>
-        <div class="veille-title">La sécurisation des accès SSH</div>
-        <div class="veille-sub">Vulnérabilités, authentification par clés RSA, durcissement et protection automatisée</div>
+        <div class="veille-title">Les attaques DDoS</div>
+        <div class="veille-sub">Distributed Denial of Service — mécanismes, impacts et solutions de protection</div>
       </div>
       <div class="veille-stats">
         <div class="v-stat"><div class="val">4</div><div class="lbl">Fiches</div></div>
@@ -530,48 +597,217 @@ footer { position: relative; z-index: 1; background: var(--surface); border-top:
       </div>
     </div>
 
-    <!-- Méthode de veille -->
-    <div class="methode-box fade-up">
-      <h3>🔍 Méthode de collecte — Approche structurée en 5 étapes</h3>
-      <div class="methode-steps">
-        <div class="methode-step">
-          <div class="step-num">Étape 1</div>
-          <div class="step-title">Périmètre défini</div>
-          <div class="step-detail">Un seul thème : sécurisation SSH — protocole, vulnérabilités CVE, bonnes pratiques</div>
+    <!-- 1. DÉFINITION -->
+    <div class="veille-def fade-up">
+      <div class="veille-def-icon">💥</div>
+      <div>
+        <div class="veille-def-badge">Définition</div>
+        <p class="veille-def-text">Une attaque <strong>DDoS (Distributed Denial of Service)</strong> consiste à saturer un serveur, un réseau ou un service en l'inondant de trafic illégitime provenant de <strong>milliers de machines simultanément</strong> (botnet). L'objectif n'est pas de pénétrer le système, mais de le rendre <strong>inaccessible aux utilisateurs légitimes</strong>. Contrairement à une attaque DoS simple (une seule source), la dimension distribuée rend le DDoS <strong>bien plus difficile à bloquer</strong> : on ne peut pas simplement interdire une seule adresse IP.</p>
+      </div>
+    </div>
+
+    <!-- 2. CHRONOLOGIE -->
+    <div class="veille-chrono-wrap fade-up">
+      <div class="veille-chrono-badge">Chronologie</div>
+      <div class="veille-chrono">
+        <div class="chrono-item">
+          <div class="chrono-dot">🖥️</div>
+          <div class="chrono-year">1974</div>
+          <div class="chrono-desc">Premier déni de service sur ARPANET, réseau militaire américain</div>
         </div>
-        <div class="methode-step">
-          <div class="step-num">Étape 2</div>
-          <div class="step-title">Sources identifiées</div>
-          <div class="step-detail">CERT-FR, NVD NIST, ANSSI, OpenSSH.com, CIS Benchmark, The Hacker News</div>
+        <div class="chrono-item">
+          <div class="chrono-dot">🌐</div>
+          <div class="chrono-year">1996</div>
+          <div class="chrono-desc">1ère attaque DDoS documentée contre Panix, fournisseur Internet de New York</div>
         </div>
-        <div class="methode-step">
-          <div class="step-num">Étape 3</div>
-          <div class="step-title">Collecte automatisée</div>
-          <div class="step-detail">Flux RSS CERT-FR dans Feedly + alertes Google sur "CVE OpenSSH" et "SSH exploit"</div>
+        <div class="chrono-item">
+          <div class="chrono-dot">💣</div>
+          <div class="chrono-year">2000</div>
+          <div class="chrono-desc">Yahoo, Amazon et CNN mis hors ligne par le hacker canadien "Mafiaboy"</div>
         </div>
-        <div class="methode-step">
-          <div class="step-num">Étape 4</div>
-          <div class="step-title">Fiche de synthèse</div>
-          <div class="step-detail">Format normé : résumé, impact, action recommandée, lien avec la formation</div>
+        <div class="chrono-item">
+          <div class="chrono-dot">🏛️</div>
+          <div class="chrono-year">2007</div>
+          <div class="chrono-desc">Estonie paralysée pendant 3 semaines — 1ers DDoS à dimension géopolitique</div>
         </div>
-        <div class="methode-step">
-          <div class="step-num">Étape 5</div>
-          <div class="step-title">Archivage mensuel</div>
-          <div class="step-detail">Journal de veille mis à jour chaque mois, intégré au portfolio</div>
+        <div class="chrono-item">
+          <div class="chrono-dot">🤖</div>
+          <div class="chrono-year">2016</div>
+          <div class="chrono-desc">Botnet Mirai (600k objets IoT) attaque Dyn : Twitter, Netflix, GitHub tombent</div>
+        </div>
+        <div class="chrono-item">
+          <div class="chrono-dot">🚀</div>
+          <div class="chrono-year">2024</div>
+          <div class="chrono-desc">Record absolu : 3,8 Tbps stoppé par Cloudflare — le plus puissant de l'histoire</div>
         </div>
       </div>
     </div>
 
+    <!-- 3. CHIFFRES CLÉS -->
+    <div class="veille-chiffres-badge fade-up">Chiffres clés DDoS — 2024-2026</div>
+    <div class="chiffres-grid fade-up">
+      <div class="chiffre-card">
+        <div class="chiffre-val">3,8 Tbps</div>
+        <div class="chiffre-desc">Record mondial d'attaque DDoS bloquée (Cloudflare, oct. 2024)</div>
+      </div>
+      <div class="chiffre-card">
+        <div class="chiffre-val">+55%</div>
+        <div class="chiffre-desc">Augmentation des attaques DDoS en 2024 par rapport à 2023</div>
+      </div>
+      <div class="chiffre-card">
+        <div class="chiffre-val">50 000 $</div>
+        <div class="chiffre-desc">Coût moyen par heure de panne pour une entreprise victime</div>
+      </div>
+      <div class="chiffre-card">
+        <div class="chiffre-val">15,4 M</div>
+        <div class="chiffre-desc">Attaques DDoS recensées dans le monde en 2023</div>
+      </div>
+      <div class="chiffre-card">
+        <div class="chiffre-val">~10 $/h</div>
+        <div class="chiffre-desc">Prix d'un service DDoS-for-hire sur le dark web</div>
+      </div>
+      <div class="chiffre-card">
+        <div class="chiffre-val">#1</div>
+        <div class="chiffre-desc">Vecteur d'interruption de service le plus utilisé dans les cyberattaques</div>
+      </div>
+    </div>
+
+    <!-- 4. PRÉSENTATION DE MA VEILLE -->
+    <div class="vpres-badge fade-up">Présentation de ma veille</div>
+    <div class="vpres-list">
+
+      <!-- Q1 -->
+      <div class="vpres-item fade-up">
+        <div class="vpres-question">
+          <div class="vpres-num">1</div>
+          <div class="vpres-q-text">Pourquoi avoir choisi ce sujet de veille ?</div>
+        </div>
+        <div class="vpres-body">
+          <div class="vpres-cards">
+            <div class="vpres-card">
+              <div class="vpres-card-icon">📰</div>
+              <div>
+                <div class="vpres-card-title">Actualité permanente</div>
+                <div class="vpres-card-text">Les DDoS font régulièrement la une : attaques Killnet sur les hôpitaux français, Anonymous Sudan, perturbations pendant les JO Paris 2024. Pas une semaine sans incident majeur.</div>
+              </div>
+            </div>
+            <div class="vpres-card">
+              <div class="vpres-card-icon">🎯</div>
+              <div>
+                <div class="vpres-card-title">Sujet concret et compréhensible</div>
+                <div class="vpres-card-text">Le principe est simple : saturer un serveur de requêtes pour le rendre inaccessible. Même quelqu'un sans formation informatique comprend l'impact. Idéal pour expliquer sans jargon complexe.</div>
+              </div>
+            </div>
+            <div class="vpres-card">
+              <div class="vpres-card-icon">🔒</div>
+              <div>
+                <div class="vpres-card-title">Enjeu critique pour les entreprises</div>
+                <div class="vpres-card-text">Les DDoS sont la première cause d'interruption de service. Chaque heure d'indisponibilité coûte en moyenne 50 000 $ à une entreprise. Un sujet incontournable pour tout technicien réseau.</div>
+              </div>
+            </div>
+            <div class="vpres-card">
+              <div class="vpres-card-icon">📈</div>
+              <div>
+                <div class="vpres-card-title">Menace en pleine expansion</div>
+                <div class="vpres-card-text">+55% en 2024. La démocratisation des services DDoS-for-hire (10$/heure) permet à n'importe qui de lancer une attaque, sans aucune compétence technique. Le sujet ne fait que croître.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="vpres-item fade-up">
+        <div class="vpres-question">
+          <div class="vpres-num">2</div>
+          <div class="vpres-q-text">À quoi cela me servira dans ma carrière professionnelle ?</div>
+        </div>
+        <div class="vpres-body">
+          <div class="vpres-career-grid">
+            <div class="vpres-career-card">
+              <div class="vpres-career-icon">🌐</div>
+              <div class="vpres-career-title">Environnement exposé</div>
+              <div class="vpres-career-text">Identifier les serveurs et services exposés sur Internet susceptibles d'être ciblés</div>
+            </div>
+            <div class="vpres-career-card">
+              <div class="vpres-career-icon">🛡️</div>
+              <div class="vpres-career-title">Protection réseau</div>
+              <div class="vpres-career-text">Configurer pare-feux, ACL, rate limiting pour limiter l'impact d'une attaque</div>
+            </div>
+            <div class="vpres-career-card">
+              <div class="vpres-career-icon">📊</div>
+              <div class="vpres-career-title">Supervision & détection</div>
+              <div class="vpres-career-text">Détecter les pics de trafic anormaux via les outils de monitoring réseau</div>
+            </div>
+            <div class="vpres-career-card">
+              <div class="vpres-career-icon">🔧</div>
+              <div class="vpres-career-title">Réponse à incident</div>
+              <div class="vpres-career-text">Appliquer un plan de continuité d'activité et communiquer en cas de crise</div>
+            </div>
+          </div>
+          <div class="vpres-note">En tant que futur technicien SISR, je serai directement responsable de <strong>la disponibilité des services et de la protection des infrastructures</strong>. Comprendre les DDoS est indispensable pour concevoir des réseaux résilients.</div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="vpres-item fade-up">
+        <div class="vpres-question">
+          <div class="vpres-num">3</div>
+          <div class="vpres-q-text">Comment j'automatise ma veille technologique ?</div>
+        </div>
+        <div class="vpres-body">
+          <div class="auto-rows">
+            <div class="auto-row">
+              <div class="auto-key">Alertes</div>
+              <div class="auto-tags">
+                <div class="auto-tag">🔔 Google Alertes — "attaque DDoS 2026", "DDoS record", "DDoS France"</div>
+              </div>
+            </div>
+            <div class="auto-row">
+              <div class="auto-key">Flux RSS</div>
+              <div class="auto-tags">
+                <div class="auto-tag">📡 Feedly — CERT-FR, The Hacker News, BleepingComputer, Cloudflare Blog</div>
+              </div>
+            </div>
+            <div class="auto-row">
+              <div class="auto-key">Réseaux</div>
+              <div class="auto-tags">
+                <div class="auto-tag">💼 LinkedIn — experts cybersécurité & ANSSI</div>
+                <div class="auto-tag">🐦 X (Twitter) — #DDoS #Cybersécurité</div>
+              </div>
+            </div>
+            <div class="auto-row">
+              <div class="auto-key">Sites spécialisés</div>
+              <div class="auto-tags">
+                <div class="auto-tag">🛡️ The Hacker News</div>
+                <div class="auto-tag">🌐 Cloudflare Blog</div>
+                <div class="auto-tag">🇫🇷 CERT-FR (ANSSI)</div>
+                <div class="auto-tag">📊 Netscout Threat Report</div>
+              </div>
+            </div>
+          </div>
+          <div class="auto-result">
+            <span>✅</span>
+            <span>Veille <strong>régulière et structurée</strong> — informations filtrées par thème DDoS, centralisées dans Feedly et consultées chaque semaine pour rester à jour sur les nouvelles attaques et protections.</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end vpres-list -->
+
+    <!-- 5. FICHES DE SYNTHÈSE -->
+    <div class="fiches-badge fade-up">Fiches de synthèse</div>
     <div class="fiches-list" id="fiches-container"></div>
 
+    <!-- 6. SOURCES -->
     <p style="font-family:var(--font-mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--amber);margin-top:3rem;margin-bottom:1rem">Sources consultées</p>
     <div class="sources-grid">
       <a href="https://cert.ssi.gouv.fr" target="_blank" class="source-card"><span class="source-name">ANSSI / CERT-FR</span><span class="source-tag">Officiel</span></a>
       <a href="https://thehackernews.com" target="_blank" class="source-card"><span class="source-name">The Hacker News</span><span class="source-tag">Sécurité</span></a>
+      <a href="https://blog.cloudflare.com" target="_blank" class="source-card"><span class="source-name">Cloudflare Blog</span><span class="source-tag">Analyse</span></a>
       <a href="https://bleepingcomputer.com" target="_blank" class="source-card"><span class="source-name">BleepingComputer</span><span class="source-tag">Sécurité</span></a>
-      <a href="https://krebsonsecurity.com" target="_blank" class="source-card"><span class="source-name">Krebs on Security</span><span class="source-tag">Analyse</span></a>
+      <a href="https://www.netscout.com/threatreport" target="_blank" class="source-card"><span class="source-name">Netscout Threat Report</span><span class="source-tag">Rapport</span></a>
       <a href="https://lemagit.fr" target="_blank" class="source-card"><span class="source-name">LeMagIT</span><span class="source-tag">Tech FR</span></a>
-      <a href="https://cve.org" target="_blank" class="source-card"><span class="source-name">CVE MITRE</span><span class="source-tag">CVE</span></a>
     </div>
   </div>
 </section>
@@ -685,43 +921,43 @@ const e6Data = [
   { id:'2', titre:"Infrastructure réseau segmentée avec WAN et DHCP", desc:"Restructuration complète d'un réseau local avec un routeur Cisco 1841 et switch 2960. Création de VLANs, routage inter-VLAN, distribution dynamique d'IP (DHCP) et accès WAN (NAT).", date:"Mars 2026 — CFA INSTA", pdf:"SLM 1.pdf", objectifs:["Création des VLANs 2 et 3 sur le commutateur Cisco 2960","Configuration Trunk (802.1Q) et routage inter-VLAN (Router-on-a-stick)","Mise en place de pools DHCP distincts par VLAN sur le routeur","Configuration de l'accès WAN via le NAT"], env:["Cisco 1841","Cisco 2960","IOS Cisco","Packet Tracer","DHCP","NAT"] }
 ];
 
-/* ===== DONNÉES VEILLE — Thème unique : Sécurisation SSH ===== */
+/* ===== DONNÉES VEILLE — Thème unique : Attaques DDoS ===== */
 const fichesData = [
   {
-    num:1, date:"Janvier 2026", type:"Veille CVE", crit:"CRITIQUE", critClass:"crit-critical",
-    titre:"CVE-2024-6387 (regreSSHion) — Exécution de code à distance dans OpenSSH",
-    resume:"La CVE-2024-6387, surnommée regreSSHion, est une faille de type RCE (Remote Code Execution) dans le daemon OpenSSH (sshd). Elle touche toutes les versions antérieures à 9.8p1 sur Linux. Un attaquant non authentifié peut exploiter une condition de compétition (race condition) dans le gestionnaire de signaux pour obtenir un accès root à distance, sans aucun mot de passe. Cette vulnérabilité est classée CVSS 8.1 (haute criticité).",
-    source:"Qualys Security Research (blog.qualys.com) — CERT-FR CERTFR-2024-AVI-0565 — NVD NIST — OpenSSH.com",
-    impact:"Tout serveur Linux exposant le port SSH 22 sur Internet avec OpenSSH < 9.8p1 est vulnérable à une compromission totale (root non authentifié). Des millions de serveurs dans le monde étaient concernés au moment de la publication.",
-    action:"Mettre à jour OpenSSH vers la version 9.8p1 minimum (apt update && apt upgrade openssh-server). Bloquer le port 22 sur le WAN via le pare-feu. Utiliser un port SSH non standard. Surveiller /var/log/auth.log.",
-    lien:"Lien direct avec mon projet E5 #6 (Debian 12 / SSH) : j'ai configuré sshd sur le port 2222, désactivé le login root (PermitRootLogin no) et restreint l'accès par UFW — mesures qui auraient directement limité l'exposition à cette CVE."
+    num:1, date:"Janvier 2026", type:"Veille Technologique", crit:"ÉLEVÉ", critClass:"crit-high",
+    titre:"Les types d'attaques DDoS — Comprendre les 3 grandes familles",
+    resume:"Il existe 3 grandes familles d'attaques DDoS. Les attaques volumétriques (UDP flood, ICMP flood) cherchent à saturer entièrement la bande passante disponible. Les attaques protocolaires (SYN flood, Ping of Death) exploitent les failles des protocoles TCP/IP pour épuiser les ressources des équipements réseau (routeurs, pare-feux). Les attaques applicatives (HTTP flood, Slowloris) ciblent la couche 7 du modèle OSI : elles envoient des requêtes apparemment légitimes pour saturer les serveurs web. Chaque famille nécessite une contre-mesure différente.",
+    source:"Cloudflare Learning (cloudflare.com/learning/ddos) — ANSSI — Netscout Threat Intelligence Report 2024",
+    impact:"Un attaquant peut louer un service DDoS-for-hire pour moins de 10$/heure sur le dark web. Sans protection adaptée, une PME peut être mise hors ligne en quelques minutes par une attaque volumétrique basique.",
+    action:"Identifier le type d'attaque pour appliquer la bonne contre-mesure : ACL et filtrage IP pour le volumétrique, inspection des états pour le protocolaire, WAF (Web Application Firewall) pour l'applicatif. Mettre en place un système de détection des anomalies de trafic.",
+    lien:"Lien avec mes projets E5 : la configuration d'ACL étendues (projet #2 — Filtrage réseau) et la segmentation VLAN (projet #1) constituent des premières mesures de filtrage qui limitent la propagation d'une attaque sur le réseau interne."
   },
   {
-    num:2, date:"Février 2026", type:"Veille Technologique", crit:"ÉLEVÉ", critClass:"crit-high",
-    titre:"Authentification SSH par clés RSA — Pourquoi les mots de passe ne suffisent plus",
-    resume:"L'authentification SSH par mot de passe est vulnérable aux attaques par dictionnaire et force brute : un attaquant peut tester des milliers de combinaisons à la seconde. Les clés RSA (4096 bits) offrent une sécurité cryptographique bien supérieure car la clé privée ne transite jamais sur le réseau. Le serveur ne stocke que la clé publique. Même si un attaquant intercepte les échanges, il ne peut pas reconstruire la clé privée.",
-    source:"NIST SP 800-57 (Recommandations cryptographiques) — Guide SSH de l'ANSSI — OpenSSH.com",
-    impact:"Un serveur SSH exposé avec authentification par mot de passe peut être compromis en quelques heures par des outils automatisés (Hydra, Medusa). Les logs de n'importe quel serveur public montrent des centaines de tentatives par heure.",
-    action:"Générer une paire de clés RSA 4096 bits : ssh-keygen -t rsa -b 4096. Copier la clé publique : ssh-copy-id user@serveur. Désactiver les mots de passe dans /etc/ssh/sshd_config : PasswordAuthentication no.",
-    lien:"Mis en pratique dans mon projet E5 #6 : génération de clés RSA 4096 bits, transfert par ssh-copy-id, désactivation de PasswordAuthentication dans sshd_config. Je peux expliquer chaque étape en détail."
+    num:2, date:"Février 2026", type:"Veille Sécurité", crit:"CRITIQUE", critClass:"crit-critical",
+    titre:"Botnet Mirai (2016) — Quand les objets connectés deviennent des armes DDoS",
+    resume:"En octobre 2016, le botnet Mirai a infecté plus de 600 000 objets connectés (caméras IP, enregistreurs DVR, routeurs domestiques) en exploitant une faille simple : l'utilisation d'identifiants par défaut (admin/admin, root/root). Il a ensuite lancé une attaque DDoS de 1,2 Tbps contre Dyn, un fournisseur DNS américain, rendant inaccessibles Twitter, Netflix, GitHub, Reddit et PayPal pendant plusieurs heures sur la côte est des États-Unis. Le code source de Mirai a été publié en ligne peu après, donnant naissance à des dizaines de variantes encore actives en 2026.",
+    source:"Brian Krebs (krebsonsecurity.com) — Cloudflare Blog — Wired (oct. 2016) — BleepingComputer",
+    impact:"Mirai a démontré que les objets IoT non sécurisés peuvent devenir des armes massives. Il n'a pas compromis des PC ou des serveurs, mais des caméras et routeurs oubliés. Des variantes de Mirai alimentent encore des attaques DDoS en 2026.",
+    action:"Changer systématiquement les identifiants par défaut de tous les équipements réseau. Isoler les équipements IoT sur un VLAN dédié. Mettre à jour le firmware régulièrement. Désactiver les ports et services inutilisés sur les équipements connectés.",
+    lien:"Lien avec mes projets E5 : la segmentation VLAN (projet #1) et le déploiement de pfSense (projet #3) sont exactement les mesures préconisées pour isoler les équipements IoT et limiter la portée d'un botnet comme Mirai."
   },
   {
-    num:3, date:"Mars 2026", type:"Veille Sécurité", crit:"ÉLEVÉ", critClass:"crit-high",
-    titre:"Durcissement SSH (SSH Hardening) — Configurer sshd_config de manière sécurisée",
-    resume:"La configuration par défaut d'OpenSSH laisse activées des options risquées : port 22 exposé, login root autorisé, algorithmes de chiffrement anciens acceptés. Le CIS Benchmark et l'ANSSI publient des guides de durcissement précisant les paramètres à modifier dans /etc/ssh/sshd_config pour réduire la surface d'attaque. L'outil ssh-audit permet d'évaluer le niveau de sécurité d'un serveur SSH et d'identifier les algorithmes faibles encore actifs.",
-    source:"CIS Benchmark for Debian Linux — Guide de durcissement SSH ANSSI — ssh-audit.com — man sshd_config",
-    impact:"Un serveur SSH avec la configuration par défaut est détecté et attaqué automatiquement par des bots dans les minutes suivant sa mise en ligne. Un serveur durci réduit de plus de 90% les tentatives d'intrusion automatisées.",
-    action:"Paramètres à appliquer dans sshd_config : Port 2222 | PermitRootLogin no | PasswordAuthentication no | MaxAuthTries 3 | LoginGraceTime 20 | AllowUsers [mon_user] | Protocol 2. Redémarrer sshd après modification.",
-    lien:"Configuration appliquée dans mon projet E5 #6 : port 2222, PermitRootLogin no, PasswordAuthentication no, MaxAuthTries 3. Ces paramètres correspondent exactement aux recommandations du CIS Benchmark Debian."
+    num:3, date:"Mars 2026", type:"Veille Sécurité", crit:"CRITIQUE", critClass:"crit-critical",
+    titre:"Record mondial 3,8 Tbps — L'attaque DDoS la plus puissante de l'histoire (2024)",
+    resume:"En octobre 2024, Cloudflare a automatiquement détecté et bloqué l'attaque DDoS la plus puissante jamais enregistrée : 3,8 Tbps (térabits par seconde) et 2,14 milliards de paquets par seconde, pendant 65 secondes. L'attaque ciblait un opérateur télécom international et provenait de dizaines de milliers d'équipements compromis dans le monde : routeurs ASUS, routeurs MikroTik et enregistreurs DVR. Elle exploitait le protocole UDP. La totalité du trafic a été absorbée par le réseau anycast de Cloudflare sans aucune interruption de service pour le client ciblé.",
+    source:"Cloudflare Blog — cloudflare.com/blog/ddos-threat-report-2024-q4 — The Hacker News (oct. 2024) — LeMagIT",
+    impact:"3,8 Tbps dépasse la capacité de la grande majorité des datacenters dans le monde. Aucune infrastructure physique locale non protégée ne peut absorber une telle attaque. Cela démontre la nécessité absolue des services de protection cloud.",
+    action:"Pour les entreprises exposées : souscrire à un service de protection DDoS cloud (Cloudflare Magic Transit, OVH Anti-DDoS, Akamai Prolexic). Mettre en place un plan de continuité d'activité (PCA). Documenter la procédure de réponse à un incident DDoS.",
+    lien:"Ce cas illustre les limites des protections locales (pare-feu, ACL) face aux attaques massives. Mes projets E5 couvrent la sécurité périmétrique de base ; la protection DDoS cloud représente l'étape supérieure déployée en contexte professionnel."
   },
   {
-    num:4, date:"Avril 2026", type:"Veille Outil", crit:"MOYEN", critClass:"crit-med",
-    titre:"Fail2ban — Blocage automatique des attaques par force brute SSH",
-    resume:"Fail2ban est un outil open source qui surveille en temps réel les fichiers de logs (/var/log/auth.log) et bloque automatiquement les adresses IP générant trop de tentatives de connexion échouées. Il crée des règles iptables/nftables temporaires ou permanentes. Pour SSH, la configuration par défaut bloque une IP après 5 échecs sur 10 minutes. C'est un complément indispensable au durcissement SSH car même avec des clés RSA, les tentatives de connexion parasites surchargent les logs.",
-    source:"Documentation officielle Fail2ban (fail2ban.org) — DigitalOcean Tutorials — Linux Journal",
-    impact:"Sans Fail2ban, un serveur SSH public reçoit des milliers de tentatives de connexion par jour, parasitant les logs et consommant des ressources. Fail2ban supprime ce bruit et bloque les scanners automatisés dès les premières tentatives.",
-    action:"Installation : apt install fail2ban. Créer /etc/fail2ban/jail.local avec [sshd] enabled=true, maxretry=3, bantime=3600, port=2222. Vérifier les IPs bloquées : fail2ban-client status sshd.",
-    lien:"Complément logique de mon projet E5 #6 : après le durcissement SSH et les clés RSA, Fail2ban constitue la troisième couche de protection. Il automatise ce que UFW ne peut pas faire seul : bloquer dynamiquement les IPs malveillantes."
+    num:4, date:"Avril 2026", type:"Veille Réglementaire", crit:"MOYEN", critClass:"crit-med",
+    titre:"Directive NIS2 — Les entreprises obligées de se protéger contre les DDoS",
+    resume:"La directive NIS2 (UE 2022/2555), transposée en France, impose aux entités essentielles et importantes de garantir la continuité de leurs services face aux cyberattaques, dont les DDoS. Elle exige la mise en place d'un plan de gestion des incidents, une déclaration à l'ANSSI sous 24h en cas d'attaque significative, et des mesures techniques de résilience documentées. Les entreprises des secteurs critiques (santé, énergie, transports, finances) sont directement concernées. Les sanctions peuvent atteindre 10 millions d'euros ou 2% du chiffre d'affaires mondial.",
+    source:"ANSSI (anssi.gouv.fr/nis2) — Directive NIS2 UE 2022/2555 — Journal Officiel de l'Union Européenne",
+    impact:"L'absence de mesures de protection documentées contre les DDoS constitue une non-conformité NIS2 sanctionnable. Les entreprises doivent prouver qu'elles ont anticipé ce risque, pas seulement réagi après une attaque.",
+    action:"Rédiger un Plan de Continuité d'Activité (PCA) incluant le scénario DDoS. Identifier un prestataire de mitigation. Tester la résilience de l'infrastructure. Désigner un responsable chargé de déclarer les incidents à l'ANSSI dans les délais imposés.",
+    lien:"NIS2 renforce l'importance de tous mes projets E5 et E6 : segmentation réseau, règles de pare-feu, gestion des accès. Ces mesures constituent la base d'une infrastructure conforme aux exigences de disponibilité et résilience imposées par la directive."
   }
 ];
 
